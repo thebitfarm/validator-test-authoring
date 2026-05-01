@@ -1,0 +1,1483 @@
+{
+  "displayName": "Sample AD Tests",
+  "connectorConfigs": {
+    "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e": {
+      "displayName": "Generic Actions",
+      "connectorClassName": "GenericActions",
+      "connectorClass": "GenericActions",
+      "oldDisplayName": "Generic Actions",
+      "guid": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e"
+    },
+    "59259c43-bde5-fd46-0714-4fa71b56783b": {
+      "displayName": "IDV",
+      "connectorClassName": "EDirConnector",
+      "connectorClass": "EDirConnector",
+      "host": "${IDV-Conn-Host}",
+      "port": "${IDV-Conn-Port}",
+      "useSsl": "${IDV-Conn-UseSsl}",
+      "proxyUser": "${IDV-Conn-ProxyUser}",
+      "proxyPwd": "${IDV-Conn-ProxyPwd}",
+      "oldDisplayName": "IDV",
+      "guid": "59259c43-bde5-fd46-0714-4fa71b56783b"
+    },
+    "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e": {
+      "displayName": "AD",
+      "connectorClassName": "ADConnector",
+      "connectorClass": "ADConnector",
+      "host": "${AD-Conn-Host}",
+      "port": "${AD-Conn-Port}",
+      "useSsl": "${AD-Conn-UseSsl}",
+      "proxyUser": "${AD-Conn-ProxyUser}",
+      "proxyPwd": "${AD-Conn-ProxyPwd}",
+      "oldDisplayName": "AD",
+      "guid": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e"
+    }
+  },
+  "tests": {
+    "9a95b36d-5dee-1f78-05d2-a139cf9cfffe": {
+      "displayName": "Subscriber Tests",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "7e78e7f6-231b-1b53-2347-da3ddc39487f": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "echo",
+          "message": "asdf"
+        }
+      },
+      "groupHeaderCollapsed": false,
+      "type": "groupHeader"
+    },
+    "b0c75dee-5218-389d-e68c-62267a7ad781": {
+      "displayName": "Create User in IDV and Check in AD",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "4a7268d0-fddb-12ef-c289-12132bafa42b": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "description": "Set Test Suffix",
+          "attributesValues": {
+            "TestSuffix": [
+              "1"
+            ]
+          },
+          "attributesValuesHide": false
+        },
+        "faee9fa0-b10f-82a2-d05a-923f2c63b89f": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup"
+        },
+        "a0f54a89-a926-26d5-1c0f-332105e67ae5": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "8db2b6a7-4cbd-d976-c9d0-d333e96fe1cc",
+          "description": "Run Template - Create User in IDV"
+        },
+        "52972c1d-ff65-a8ee-216f-d893b1e8d6db": {
+          "category": "TEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertObjectExists",
+          "assertRetryCount": "10",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${AD-User-DN}",
+          "notResult": "false"
+        },
+        "813114ce-680f-d62b-e51a-c81782e92d2a": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "9c75532a-6317-f4c3-990c-4e7e583f3aaa",
+          "description": "Run Template - Delete users"
+        }
+      },
+      "type": "test"
+    },
+    "5965abe6-64f7-1c21-0a86-497173e3b72c": {
+      "displayName": "Modify User - Add Attr in IDV and Check in AD",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "a77e70ae-2cd8-73d0-afb6-64108f37af29": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "description": "Set Test Suffix",
+          "attributesValues": {
+            "TestSuffix": [
+              "2"
+            ]
+          },
+          "attributesValuesHide": false
+        },
+        "1a383ed5-2ea0-db11-3969-e1260158e120": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup"
+        },
+        "56676f13-03ef-2941-8103-4ca3a3888985": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "8db2b6a7-4cbd-d976-c9d0-d333e96fe1cc",
+          "description": "Run Template - Create user in IDV"
+        },
+        "b6e3dc0b-497d-ce5e-4112-bc56ef8e43fd": {
+          "category": "PRETEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertObjectExists",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${AD-User-DN}",
+          "description": "Assert Object Exists in AD",
+          "notResult": "false"
+        },
+        "e1b8f6ff-9727-4b8b-41eb-f2af0a242df1": {
+          "category": "TEST",
+          "connectorInstanceId": "59259c43-bde5-fd46-0714-4fa71b56783b",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "addAttributesValues",
+          "targetFdn": "${IDV-User-DN}",
+          "attributesValues": {
+            "initials": [
+              "fl"
+            ]
+          },
+          "description": "Add Initials Attribute in IDV",
+          "attributesValuesHide": false
+        },
+        "1ff96d67-3098-3bcd-748b-5f7323515fb0": {
+          "category": "TEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertAttributesValues",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${AD-User-DN}",
+          "attributesValues": {
+            "initials": [
+              "fl"
+            ]
+          },
+          "description": "Assert initials = fl in AD",
+          "compOper": "equals",
+          "compMode": "case ignore",
+          "attributesValuesHide": false
+        },
+        "8c297642-02eb-a383-1517-86dead31f628": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "9c75532a-6317-f4c3-990c-4e7e583f3aaa",
+          "description": "Run Template - Delete users"
+        }
+      },
+      "type": "test"
+    },
+    "0f334849-752d-2fda-9e8e-09934baf86fc": {
+      "displayName": "Modify User - Delete Attr in IDV and Check in AD",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "e009ff3b-0afc-e680-0e05-a390abbb1959": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "description": "Set Test Suffix",
+          "attributesValues": {
+            "TestSuffix": [
+              "3"
+            ]
+          },
+          "attributesValuesHide": false
+        },
+        "e787abde-cd16-52bc-2d34-bb1bd409c557": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup",
+          "description": "Run Cleanup Actions"
+        },
+        "a193b9d6-8a67-d562-a22f-c4e6ab720d27": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "8db2b6a7-4cbd-d976-c9d0-d333e96fe1cc",
+          "description": "Run Template - Create user in IDV"
+        },
+        "be602f6a-8fec-6c73-3302-94b29e845da0": {
+          "category": "PRETEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertObjectExists",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${AD-User-DN}",
+          "description": "Assert Object Exists in AD",
+          "notResult": "false"
+        },
+        "ed7d7af2-4152-9f0f-846a-0d4e2ff2c9a5": {
+          "category": "PRETEST",
+          "connectorInstanceId": "59259c43-bde5-fd46-0714-4fa71b56783b",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "addAttributesValues",
+          "targetFdn": "${IDV-User-DN}",
+          "attributesValues": {
+            "initials": [
+              "fl"
+            ]
+          },
+          "description": "Add Initials Attribute in IDV",
+          "attributesValuesHide": false
+        },
+        "d016a4ed-e515-5a65-b46c-274635b72970": {
+          "category": "PRETEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertAttributesValues",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${AD-User-DN}",
+          "attributesValues": {
+            "initials": [
+              "fl"
+            ]
+          },
+          "description": "Assert initials = fl in AD",
+          "compOper": "equals",
+          "compMode": "case ignore",
+          "attributesValuesHide": false
+        },
+        "91226aad-ee6c-a5ec-c5da-1ad03572869d": {
+          "category": "TEST",
+          "connectorInstanceId": "59259c43-bde5-fd46-0714-4fa71b56783b",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "deleteAttributes",
+          "targetFdn": "${IDV-User-DN}",
+          "attributesValues": {
+            "initials": [
+              "fl"
+            ]
+          },
+          "description": "Delete Initials Attribute in IDV",
+          "values": [
+            "initials"
+          ],
+          "valuesHide": false
+        },
+        "6e103c75-105c-81ac-2f36-f7a26fdf4404": {
+          "category": "TEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertAttributesExist",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${IDV-User-DN}",
+          "attributesValues": {
+            "initials": [
+              "fl"
+            ]
+          },
+          "description": "Assert Attribute initials Not Exist in AD",
+          "values": [
+            "initials"
+          ],
+          "notResult": "true",
+          "valuesHide": false
+        },
+        "a980d89d-3017-2f7a-cfa7-f0d1d8ee8c84": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "9c75532a-6317-f4c3-990c-4e7e583f3aaa",
+          "description": "Run Template - Delete users in AD and IDV"
+        }
+      },
+      "type": "test"
+    },
+    "2c984472-c273-fb0f-5c77-d41516659e9e": {
+      "displayName": "Delete User in IDV and Check in AD",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "afe6a063-2cee-8e64-9354-6d44b3c0da8f": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "description": "Set Test Suffix",
+          "attributesValues": {
+            "TestSuffix": [
+              "4"
+            ]
+          },
+          "attributesValuesHide": false
+        },
+        "1373ed18-9e45-2572-8d1d-a18471647178": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup"
+        },
+        "44a48696-eb56-c7fa-8a2a-1110dae3243b": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "8db2b6a7-4cbd-d976-c9d0-d333e96fe1cc",
+          "description": "Run Template - Create user in IDV"
+        },
+        "de061bc8-dd05-5dca-c59a-1df92d5b6759": {
+          "category": "PRETEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertObjectExists",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${AD-User-DN}",
+          "description": "Assert Object Exists in AD",
+          "notResult": "false"
+        },
+        "adfc9e0f-0098-d254-a570-7f9f61c8e5a5": {
+          "category": "TEST",
+          "connectorInstanceId": "59259c43-bde5-fd46-0714-4fa71b56783b",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "deleteObjects",
+          "values": [
+            "${IDV-User-DN}"
+          ],
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "valuesHide": false,
+          "description": "Delete Object in IDV"
+        },
+        "b20a7d4f-69fa-c4a0-904b-0c5ad86c1938": {
+          "category": "TEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertObjectExists",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${AD-User-DN}",
+          "description": "Assert Object Not Exists in AD",
+          "notResult": "true"
+        },
+        "1b93408e-989a-bfee-b63f-bddfc1f58982": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "9c75532a-6317-f4c3-990c-4e7e583f3aaa",
+          "description": "Run Template - Delete users in AD and IDV"
+        }
+      },
+      "type": "test"
+    },
+    "87a1aa84-f77c-fbce-c3ed-316308b87d21": {
+      "displayName": "Set password in IDV and Check in AD",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "326f2478-8970-b828-36ff-8e3c94e9d93f": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "description": "Set Test Suffix",
+          "attributesValues": {
+            "TestSuffix": [
+              "5"
+            ]
+          },
+          "attributesValuesHide": false
+        },
+        "ce35b705-01da-d57a-c054-c5a89e9c9da9": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup"
+        },
+        "2b3e92f9-48e3-8bf9-4f0b-1f3ce9874a99": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "8db2b6a7-4cbd-d976-c9d0-d333e96fe1cc",
+          "description": "Run Template - Create user in IDV"
+        },
+        "be738cec-49cd-eadb-e067-d6de4520aedd": {
+          "category": "PRETEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertObjectExists",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${AD-User-DN}",
+          "description": "Assert Object Exists in AD",
+          "notResult": "false"
+        },
+        "cf482618-24be-fdd5-5cec-449a6186c2ae": {
+          "category": "TEST",
+          "connectorInstanceId": "59259c43-bde5-fd46-0714-4fa71b56783b",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setPassword",
+          "targetFdn": "${IDV-User-DN}",
+          "attributeValue": "N0vellR0cks"
+        },
+        "9961de1c-b799-7520-e19d-baf230f96558": {
+          "category": "TEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertPasswordEquals",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${AD-User-DN}",
+          "attributeValue": "N0vellR0cks",
+          "notResult": "false"
+        },
+        "0f231abe-75ce-f9df-783a-c9aa441ff6cd": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "9c75532a-6317-f4c3-990c-4e7e583f3aaa",
+          "description": "Run Template - Delete users in AD and IDV"
+        }
+      },
+      "type": "test"
+    },
+    "21933ad8-f5bb-2b31-e213-f32189c21622": {
+      "displayName": "Publisher Tests",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {},
+      "groupHeaderCollapsed": false,
+      "type": "groupHeader"
+    },
+    "45c5be26-a6ef-d6bd-8588-95fcd9d6516d": {
+      "displayName": "Create User in AD and Check in IDV",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "d160413a-1c86-f786-076c-fc81c778cb07": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "description": "Set Test Suffix",
+          "attributesValues": {
+            "TestSuffix": [
+              "10"
+            ]
+          },
+          "attributesValuesHide": false
+        },
+        "5515828a-eab4-3541-e880-f5a6314aad61": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup",
+          "description": "Run Cleanup Actions"
+        },
+        "3eb2da4f-7931-b51d-e1cd-45e9fe3dff71": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "description": "Run Template - Create user in AD",
+          "testId": "81153666-6757-4059-18ac-b39cdbd1cb37"
+        },
+        "b09bae89-7b5b-41ee-0e5c-0d6169c90c84": {
+          "category": "TEST",
+          "connectorInstanceId": "59259c43-bde5-fd46-0714-4fa71b56783b",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertObjectExists",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${IDV-User-DN}",
+          "notResult": "false"
+        },
+        "3e00e140-5a8e-fafc-d931-fe1a86ecc750": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "9c75532a-6317-f4c3-990c-4e7e583f3aaa",
+          "description": "Run Template - Delete users in AD and IDV"
+        }
+      },
+      "type": "test"
+    },
+    "e380938e-671e-da4c-1664-d0f7198ba340": {
+      "displayName": "Modify User- Add Attr in AD and Check in IDV",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "e1328ea5-a6da-74ea-6673-9794b5c7af35": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "description": "Set Test Suffix",
+          "attributesValues": {
+            "TestSuffix": [
+              "11"
+            ]
+          },
+          "attributesValuesHide": false
+        },
+        "96760f85-328b-bdff-6b79-78431c5b3230": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup",
+          "description": "Run Cleanup Actions"
+        },
+        "e78fb7bd-e0ea-d318-8230-4ab32ebb4ae7": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "description": "Run Template - Create user in AD",
+          "testId": "81153666-6757-4059-18ac-b39cdbd1cb37"
+        },
+        "661de311-5365-b1de-3855-a37549c5bd9e": {
+          "category": "PRETEST",
+          "connectorInstanceId": "59259c43-bde5-fd46-0714-4fa71b56783b",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertObjectExists",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${IDV-User-DN}",
+          "notResult": "false",
+          "description": "Assert Object Exists in IDV"
+        },
+        "16f3936e-2b2b-9eab-8bfa-68c7d7b3e39b": {
+          "category": "TEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "addAttributesValues",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${AD-User-DN}",
+          "attributesValues": {
+            "initials": [
+              "fl"
+            ]
+          },
+          "description": "Add Initials Attribute in AD",
+          "attributesValuesHide": false
+        },
+        "dc3fd245-fa64-aed9-fea8-86be199f5a11": {
+          "category": "TEST",
+          "connectorInstanceId": "59259c43-bde5-fd46-0714-4fa71b56783b",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertAttributesValues",
+          "targetFdn": "${IDV-User-DN}",
+          "attributesValues": {
+            "initials": [
+              "fl"
+            ]
+          },
+          "description": "Assert Initials Attribute = fl in IDV",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "compOper": "equals",
+          "compMode": "case ignore",
+          "attributesValuesHide": false
+        },
+        "52ca1187-88c9-c130-4841-07149679bff0": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "9c75532a-6317-f4c3-990c-4e7e583f3aaa",
+          "description": "Run Template - Delete users in AD and IDV"
+        }
+      },
+      "type": "test"
+    },
+    "cbaff4ab-a53f-1020-4581-7f6f31dbbd9f": {
+      "displayName": "Modify User - Delete Attr in AD and Check in IDV",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "2f9a9c90-b2f8-e1a2-70d8-cae35e9599d7": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "description": "Set Test Suffix",
+          "attributesValues": {
+            "TestSuffix": [
+              "12"
+            ]
+          },
+          "attributesValuesHide": false
+        },
+        "9d7885a7-4314-6f5d-5a6a-f42fdf11c27b": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup",
+          "description": "Run Cleanup Actions"
+        },
+        "7038bd91-392d-137d-9d71-91ead9dcecac": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "description": "Run Template - Create user in AD",
+          "testId": "81153666-6757-4059-18ac-b39cdbd1cb37"
+        },
+        "f5d7ad7e-43c6-72cf-0197-187854001ebb": {
+          "category": "PRETEST",
+          "connectorInstanceId": "59259c43-bde5-fd46-0714-4fa71b56783b",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertObjectExists",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${IDV-User-DN}",
+          "notResult": "false",
+          "description": "Assert Object Exists in IDV"
+        },
+        "b29241a7-8568-5c52-6dac-61610979e532": {
+          "category": "PRETEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "addAttributesValues",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${AD-User-DN}",
+          "attributesValues": {
+            "initials": [
+              "fl"
+            ]
+          },
+          "description": "Add Initials Attribute in AD",
+          "attributesValuesHide": false
+        },
+        "585b7e3d-5742-f262-d9ee-727d400188c4": {
+          "category": "PRETEST",
+          "connectorInstanceId": "59259c43-bde5-fd46-0714-4fa71b56783b",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertAttributesValues",
+          "targetFdn": "${IDV-User-DN}",
+          "attributesValues": {
+            "initials": [
+              "fl"
+            ]
+          },
+          "description": "Assert Initials Attribute = fl in IDV",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "compOper": "equals",
+          "compMode": "case ignore",
+          "attributesValuesHide": false
+        },
+        "5d0fc28a-645c-1ecd-9d0c-d758200adeac": {
+          "category": "TEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "deleteAttributes",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${AD-User-DN}",
+          "attributesValues": {
+            "initials": [
+              "fl"
+            ]
+          },
+          "description": "Delete Attribute initials in AD",
+          "values": [
+            "initials"
+          ],
+          "valuesHide": false
+        },
+        "ff1a4e7f-3e63-5f17-be08-7e1ba038197a": {
+          "category": "TEST",
+          "connectorInstanceId": "59259c43-bde5-fd46-0714-4fa71b56783b",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertAttributesExist",
+          "targetFdn": "${IDV-User-DN}",
+          "attributesValues": {
+            "initials": [
+              "fl"
+            ]
+          },
+          "description": "Assert Attribute initials Not Exist in IDV",
+          "values": [
+            "initials"
+          ],
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "notResult": "true",
+          "valuesHide": false
+        },
+        "279640dd-57da-6d84-3ee3-35abe2c7ea45": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "9c75532a-6317-f4c3-990c-4e7e583f3aaa",
+          "description": "Run Template - Delete users in AD and IDV"
+        }
+      },
+      "type": "test"
+    },
+    "f4b792b9-5675-0a93-2b4f-48fdded96542": {
+      "displayName": "Delete User in AD and Check in eDir",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "a0e5ef73-81ad-4836-eee1-3e8b23727831": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "description": "Set Test Suffix",
+          "attributesValues": {
+            "TestSuffix": [
+              "13"
+            ]
+          },
+          "attributesValuesHide": false
+        },
+        "02965a70-7cd6-40d5-3bde-7f3a976487f8": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup",
+          "description": "Run Cleanup Actions"
+        },
+        "6636d49c-1f26-00d2-cece-30bdd81b4b02": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "description": "Run Template - Create user in AD",
+          "testId": "81153666-6757-4059-18ac-b39cdbd1cb37"
+        },
+        "0250f303-3dec-6643-53d3-d2cc72b78ea0": {
+          "category": "PRETEST",
+          "connectorInstanceId": "59259c43-bde5-fd46-0714-4fa71b56783b",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertObjectExists",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${IDV-User-DN}",
+          "notResult": "false",
+          "description": "Assert Object Exists in IDV"
+        },
+        "01ee00f9-66aa-7045-b23b-bc50489e6f8d": {
+          "category": "TEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "deleteObjects",
+          "targetFdn": "cn=firstname1 lastname1,${AD-User-Container}",
+          "values": [
+            "${AD-User-DN}"
+          ],
+          "attributesValues": {
+            "givenName": [
+              "firstname1"
+            ],
+            "sn": [
+              "lastname1"
+            ],
+            "userPassword": [
+              "N0v3ll"
+            ],
+            "userPrincipalName": [
+              "TestUser1"
+            ],
+            "sAMAccountName": [
+              "TestUser1"
+            ]
+          },
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "valuesHide": false
+        },
+        "ab5aba37-66c7-bfb3-5615-151aa606778c": {
+          "category": "TEST",
+          "connectorInstanceId": "59259c43-bde5-fd46-0714-4fa71b56783b",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertObjectExists",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${IDV-User-DN}",
+          "notResult": "true"
+        },
+        "2bdd5efd-0ac7-25a4-076f-960d09a15276": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "9c75532a-6317-f4c3-990c-4e7e583f3aaa",
+          "description": "Run Template - Delete users in AD and IDV"
+        }
+      },
+      "type": "test"
+    },
+    "461cd678-9538-f939-2f48-6c56b3e304f5": {
+      "displayName": "Set password in AD and Check in IDV",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "6f44ada5-d982-31a1-9505-73cdf915e4e1": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "description": "Set Test Suffix",
+          "attributesValues": {
+            "TestSuffix": [
+              "14"
+            ]
+          },
+          "attributesValuesHide": false
+        },
+        "7c6c2fa6-ff8f-f68d-c4e4-35cc1bd3b577": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup",
+          "description": "Run Cleanup Actions"
+        },
+        "8ac9ca4a-4dfa-1513-559e-03b0cd2ebec7": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "description": "Run Template - Create user in AD",
+          "testId": "81153666-6757-4059-18ac-b39cdbd1cb37"
+        },
+        "9bf4ef54-f8ff-f969-259e-a2826a354d7b": {
+          "category": "PRETEST",
+          "connectorInstanceId": "59259c43-bde5-fd46-0714-4fa71b56783b",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertObjectExists",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${IDV-User-DN}",
+          "notResult": "false",
+          "description": "Assert Object Exists in IDV"
+        },
+        "b6460d98-578f-6bf5-f681-7e22654a2f0d": {
+          "category": "TEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setPassword",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${AD-User-DN}",
+          "attributeValue": "N0vellR0cks"
+        },
+        "9362d125-f1ed-c717-a428-b435abd703c4": {
+          "category": "TEST",
+          "connectorInstanceId": "59259c43-bde5-fd46-0714-4fa71b56783b",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertPasswordEquals",
+          "targetFdn": "${IDV-User-DN}",
+          "attributeValue": "N0vellR0cks",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "notResult": "false"
+        },
+        "7fcce5bf-153a-3a21-0605-0424a120fce3": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "9c75532a-6317-f4c3-990c-4e7e583f3aaa",
+          "description": "Run Template - Delete users in AD and IDV"
+        }
+      },
+      "type": "test"
+    },
+    "7c3b3f59-0b8a-3c4b-e0bb-73494cb6199a": {
+      "displayName": "Move User in AD ",
+      "description": "Move user in AD and manually check to see if trace indicates MOVE and RENAME event",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "8ac86ec9-b68c-d6a2-b7d4-3024ba0bfff8": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "description": "Set Test Suffix",
+          "attributesValues": {
+            "TestSuffix": [
+              "15"
+            ]
+          },
+          "attributesValuesHide": false
+        },
+        "94d81920-b4b3-9dd3-b460-ecaba51907da": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup"
+        },
+        "dd0f398b-f88b-dd8e-4b64-f9ec002572a8": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "description": "Run Template - Create user in AD",
+          "testId": "81153666-6757-4059-18ac-b39cdbd1cb37"
+        },
+        "7a6f3a46-b89b-5b7e-58dc-22d0b35ae523": {
+          "category": "PRETEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "createObject",
+          "targetFdn": "ou=${AD-New-User-Container-CN},${AD-User-Container-Base}",
+          "values": [
+            "organizationalUnit",
+            "top"
+          ],
+          "attributesValues": {
+            "distinguishedName": [
+              "ou=${AD-New-User-Container-CN},${AD-User-Container-Base}"
+            ],
+            "name": [
+              "${AD-New-User-Container-CN}"
+            ],
+            "objectCategory": [
+              "${AD-Object-Category}"
+            ],
+            "ou": [
+              "${AD-New-User-Container-CN}"
+            ]
+          },
+          "description": "Create new container",
+          "valuesHide": false,
+          "attributesValuesHide": false
+        },
+        "57fd1359-6310-2e3e-8519-e4f73f802b8c": {
+          "category": "TEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "renameOrMoveObject",
+          "targetFdn": "${AD-User-DN}",
+          "newFdn": "cn=${AD-User-CN},ou=${AD-New-User-Container-CN},${AD-User-Container-Base}",
+          "description": "Move user in AD",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000"
+        },
+        "f808408a-6dbd-73ca-0c55-6a9f25491aa0": {
+          "category": "TEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertObjectExists",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "cn=${AD-User-CN},ou=${AD-New-User-Container-CN},${AD-User-Container-Base}",
+          "description": "Assert new user exists in AD",
+          "notResult": "false"
+        },
+        "7c38cc6a-f3b8-414c-19b5-9bbda048b9c8": {
+          "category": "TEST",
+          "connectorInstanceId": "59259c43-bde5-fd46-0714-4fa71b56783b",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertObjectExists",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "notResult": "false",
+          "targetFdn": "FILL THIS IN BASED ON YOUR DRIVER MOVE POLICY",
+          "description": "Assert object was moved in IDV"
+        },
+        "4a6e4409-c658-5c87-e293-a69e0a392855": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "9c75532a-6317-f4c3-990c-4e7e583f3aaa",
+          "description": "Run Template - Delete users in AD and IDV"
+        },
+        "46f46af8-da15-9073-bf69-1cdb7cc3f5ba": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "deleteObjects",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "values": [
+            "cn=${AD-User-CN},ou=${AD-New-User-Container-CN},${AD-User-Container-Base}"
+          ],
+          "valuesHide": false,
+          "description": "Delete moved user in AD"
+        },
+        "9098d025-b5ad-9799-2bb9-8933f1f1014c": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "deleteObjects",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "values": [
+            "ou=${AD-New-User-Container-CN},${AD-User-Container-Base}"
+          ],
+          "valuesHide": false,
+          "description": "Delete new user container in AD"
+        }
+      },
+      "type": "test"
+    },
+    "a3b61c60-9e4a-479a-0bb8-6cc311033f36": {
+      "displayName": "Bulk Operations",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {},
+      "type": "groupHeader"
+    },
+    "e0390478-f940-9aba-9c7e-dcb57ed36d62": {
+      "displayName": "Bulk Delete and Create Users",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "e74ac8d5-c927-5002-2433-95ed43cbcc79": {
+          "category": "PRETEST",
+          "connectorInstanceId": "59259c43-bde5-fd46-0714-4fa71b56783b",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "deleteObjects",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "values": [
+            "cn=*,ou=lotsofusers,o=data"
+          ],
+          "valuesHide": false
+        },
+        "ef00d017-f5a2-10db-63ae-6d6747ae7edd": {
+          "category": "TEST",
+          "connectorInstanceId": "59259c43-bde5-fd46-0714-4fa71b56783b",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "bulkCreateObject",
+          "containerDn": "ou=lotsofusers,o=data",
+          "startValue": "1",
+          "count": "5",
+          "delay": "0",
+          "title": "",
+          "values": [
+            "user"
+          ],
+          "valuesHide": false,
+          "attributesValues": {
+            "cn": [
+              "BUserCTR"
+            ],
+            "sn": [
+              "LastnameCTR"
+            ],
+            "givenName": [
+              "GivenNameCTR"
+            ]
+          },
+          "attributesValuesHide": false,
+          "sep-1": ""
+        }
+      },
+      "type": "test"
+    },
+    "8db2b6a7-4cbd-d976-c9d0-d333e96fe1cc": {
+      "displayName": "Create user in IDV",
+      "description": "",
+      "templateTest": true,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "c236609a-d39a-22bf-6249-3aed3ae09c76": {
+          "category": "TEST",
+          "connectorInstanceId": "59259c43-bde5-fd46-0714-4fa71b56783b",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "createObject",
+          "targetFdn": "${IDV-User-DN}",
+          "values": [
+            "user"
+          ],
+          "attributesValues": {
+            "givenName": [
+              "${User-firstname}"
+            ],
+            "sn": [
+              "${User-lastname}"
+            ]
+          },
+          "description": "Create Object in IDV",
+          "valuesHide": false,
+          "attributesValuesHide": false
+        }
+      },
+      "type": "action"
+    },
+    "81153666-6757-4059-18ac-b39cdbd1cb37": {
+      "displayName": "Create user in AD",
+      "description": "",
+      "templateTest": true,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "981bf582-33b4-b2e3-fdc3-8d00dbd07a2a": {
+          "category": "TEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "createObject",
+          "targetFdn": "${AD-User-DN}",
+          "values": [
+            "user"
+          ],
+          "attributesValues": {
+            "givenName": [
+              "${User-firstname}"
+            ],
+            "sn": [
+              "${User-lastname}"
+            ],
+            "userPrincipalName": [
+              "${IDV-User-CN}"
+            ],
+            "sAMAccountName": [
+              "${IDV-User-CN}"
+            ]
+          },
+          "valuesHide": false,
+          "attributesValuesHide": false,
+          "description": "Create Object in AD"
+        }
+      },
+      "type": "action"
+    },
+    "9c75532a-6317-f4c3-990c-4e7e583f3aaa": {
+      "displayName": "Delete users in AD and IDV",
+      "description": "",
+      "templateTest": true,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "0ca9a9a8-d9ab-7826-4036-7c428206a4c3": {
+          "category": "TEST",
+          "connectorInstanceId": "59259c43-bde5-fd46-0714-4fa71b56783b",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "deleteObjects",
+          "values": [
+            "${IDV-User-DN}"
+          ],
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "valuesHide": false,
+          "description": "Delete Object in IDV"
+        },
+        "418f72c6-871d-1c09-a70a-8a0206d0f358": {
+          "category": "TEST",
+          "connectorInstanceId": "ef5f538f-5daf-c77a-5bb1-27aef71a4d9e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "deleteObjects",
+          "values": [
+            "${AD-User-DN}"
+          ],
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "valuesHide": false,
+          "description": "Delete Object in AD"
+        }
+      },
+      "type": "action"
+    }
+  },
+  "reports": {},
+  "scriptVersion": "11",
+  "variableData": {
+    "variableGroups": [
+      "DEV",
+      "PROD",
+      "QA"
+    ],
+    "variableNames": [
+      "AD-Conn-ProxyPwd",
+      "AD-Conn-Port",
+      "AD-Conn-ProxyUser",
+      "AD-Conn-Host",
+      "AD-Domain",
+      "AD-New-User-Container-CN",
+      "AD-Object-Category",
+      "AD-User-CN",
+      "AD-User-Container",
+      "AD-User-Container-Base",
+      "AD-User-DN",
+      "IDV-Conn-ProxyPwd",
+      "IDV-Conn-Port",
+      "IDV-Conn-ProxyUser",
+      "IDV-Conn-Host",
+      "IDV-User-CN",
+      "IDV-User-Container",
+      "IDV-User-DN",
+      "TestSuffix",
+      "User-firstname",
+      "User-lastname",
+      "IDV-Conn-UseSsl",
+      "AD-Conn-UseSsl"
+    ],
+    "variableValues": [
+      [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "user2",
+        "CN=Organizational-Unit,CN=Schema,CN=Configuration,${AD-Domain}",
+        "${User-firstname} ${User-lastname}",
+        "ou=users,${AD-User-Container-Base}",
+        "ou=Data,${AD-Domain}",
+        "cn=${AD-User-CN},${AD-User-Container}",
+        "",
+        "",
+        "",
+        "",
+        "TestUser${TestSuffix}",
+        "",
+        "cn=${IDV-User-CN},${IDV-User-Container}",
+        "10",
+        "firstname${TestSuffix}",
+        "lastname${TestSuffix}",
+        "true",
+        "true"
+      ],
+      [
+        "SRH/hpa6SnRrrDhCd0Ysvw==",
+        "",
+        "cn=administrator,cn=users,${AD-Domain}",
+        "",
+        "dc=nccd,dc=com",
+        "user2",
+        "CN=Organizational-Unit,CN=Schema,CN=Configuration,${AD-Domain}",
+        "${User-firstname} ${User-lastname}",
+        "ou=users,${AD-User-Container-Base}",
+        "ou=Data,${AD-Domain}",
+        "cn=${AD-User-CN},${AD-User-Container}",
+        "HVeDsEgKF3uKGp6cbhf7Tg==",
+        "637",
+        "cn=admin,ou=sa,o=system",
+        "172.17.2.90",
+        "TestUser${TestSuffix}",
+        "ou=users,o=data",
+        "cn=${IDV-User-CN},${IDV-User-Container}",
+        "11",
+        "firstname${TestSuffix}",
+        "lastname${TestSuffix}",
+        "true",
+        "true"
+      ],
+      [
+        "",
+        "",
+        "cn=administrator,cn=users,${AD-Domain}",
+        "",
+        "dc=nccd,dc=com",
+        "user2",
+        "CN=Organizational-Unit,CN=Schema,CN=Configuration,${AD-Domain}",
+        "${User-firstname} ${User-lastname}",
+        "ou=users,${AD-User-Container-Base}",
+        "ou=Data,${AD-Domain}",
+        "cn=${AD-User-CN},${AD-User-Container}",
+        "HVeDsEgKF3uKGp6cbhf7Tg==",
+        "",
+        "",
+        "",
+        "TestUser${TestSuffix}",
+        "",
+        "cn=${IDV-User-CN},${IDV-User-Container}",
+        "1",
+        "firstname${TestSuffix}",
+        "lastname${TestSuffix}",
+        "true",
+        "true"
+      ]
+    ],
+    "variableGroupActive": "DEV",
+    "variableDescriptions": [
+      "Password for the Proxy User",
+      "Port used for the proxy user. e.g. '389'",
+      "User Validator will use to login.  It should be in FDN format. e.g. 'cn=administrator,cn=users,${AD-Domain}'  The ${AD-Domain} refers to another variable called 'AD-Domain'",
+      "IP address or DNS of the AD server.",
+      "Domain used for other variables. e.g 'dc=nccd,dc=com'",
+      "Container where new users are created. e.g. 'users' This is used in conjunction with AD-User-Container-Base below.",
+      "Type of object to be created.  e.g. 'CN=Organizational-Unit,CN=Schema,CN=Configuration,${AD-Domain}'.  This is used to create the user container structure.",
+      "CN of the user to be created. e.g. '${User-firstname} ${User-lastname}' ${variableName} refers to a defined variable"
+    ]
+  },
+  "jsLibrary": "function hello() {\r\n\tprintln(\"Hello world\");\r\n}\r\n"
+}

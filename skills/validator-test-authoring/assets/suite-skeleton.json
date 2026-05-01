@@ -1,0 +1,115 @@
+{
+  "displayName": "<SUITE NAME>",
+  "description": "<WHAT THIS SUITE VALIDATES>",
+  "variableData": {
+    "variableGroupActive": "DEV",
+    "variableGroups": ["DEV", "QA", "PROD"],
+    "variableNames": [
+      "IDV-Host", "IDV-Port", "IDV-ProxyUser", "IDV-ProxyPwd",
+      "Test-User-CN", "Test-User-DN", "seq"
+    ],
+    "variableValues": [
+      ["dev-idv.example.com", "636", "cn=admin,ou=sa,o=system", "REPLACE_ME",
+       "TestUser", "cn=${Test-User-CN}${seq},ou=users,o=data", "0001"],
+      ["qa-idv.example.com",  "636", "cn=admin,ou=sa,o=system", "REPLACE_ME",
+       "TestUser", "cn=${Test-User-CN}${seq},ou=users,o=data", "0001"],
+      ["prod-idv.example.com","636", "cn=admin,ou=sa,o=system", "REPLACE_ME",
+       "TestUser", "cn=${Test-User-CN}${seq},ou=users,o=data", "0001"]
+    ]
+  },
+  "connectorConfigs": {
+    "00000000-0000-0000-0000-00000000gen0": {
+      "displayName": "Generic Actions",
+      "connectorClassName": "GenericActions",
+      "connectorClass": "GenericActions"
+    },
+    "00000000-0000-0000-0000-00000000idv0": {
+      "displayName": "IDV",
+      "connectorClassName": "EDirConnector",
+      "connectorClass": "EDirConnector",
+      "host": "${IDV-Host}",
+      "port": "${IDV-Port}",
+      "useSsl": true,
+      "proxyUser": "${IDV-ProxyUser}",
+      "proxyPwd": "${IDV-ProxyPwd}",
+      "attributesToSkip": ""
+    }
+  },
+  "tests": {
+    "00000000-0000-0000-0000-0000tmpcleanup": {
+      "displayName": "TEMPLATE: Cleanup Test User",
+      "type": "test",
+      "templateTest": true,
+      "enabled": true,
+      "actions": {
+        "00000000-0000-0000-0000-cleanremove01": {
+          "category": "TEST",
+          "connectorInstanceId": "00000000-0000-0000-0000-00000000idv0",
+          "actionMethod": "removeObject",
+          "enabled": true,
+          "description": "Remove test user if it exists",
+          "targetFdn": "${Test-User-DN}",
+          "ignoreIfMissing": true
+        }
+      }
+    },
+    "00000000-0000-0000-0000-0000realtest1": {
+      "displayName": "Create User in IDV and Verify",
+      "type": "test",
+      "templateTest": false,
+      "enabled": true,
+      "actions": {
+        "00000000-0000-0000-0000-pretestseq01": {
+          "category": "PRETEST",
+          "connectorInstanceId": "00000000-0000-0000-0000-00000000gen0",
+          "actionMethod": "calculateVariable",
+          "enabled": true,
+          "description": "Increment seq for unique naming",
+          "variableExpanded": "${seq}",
+          "calcValue": "1",
+          "variable": "seq"
+        },
+        "00000000-0000-0000-0000-pretestclean": {
+          "category": "PRETEST",
+          "connectorInstanceId": "00000000-0000-0000-0000-00000000gen0",
+          "actionMethod": "runTemplate",
+          "enabled": true,
+          "description": "Pre-clean any prior test user",
+          "testId": "00000000-0000-0000-0000-0000tmpcleanup"
+        },
+        "00000000-0000-0000-0000-testcreate01": {
+          "category": "TEST",
+          "connectorInstanceId": "00000000-0000-0000-0000-00000000idv0",
+          "actionMethod": "createObject",
+          "enabled": true,
+          "description": "Create test user in IDV",
+          "targetFdn": "${Test-User-DN}",
+          "values": ["inetOrgPerson"],
+          "attributesValues": {
+            "sn": ["Test"],
+            "givenName": ["User"]
+          }
+        },
+        "00000000-0000-0000-0000-testassert01": {
+          "category": "TEST",
+          "connectorInstanceId": "00000000-0000-0000-0000-00000000idv0",
+          "actionMethod": "assertObjectExists",
+          "enabled": true,
+          "description": "Assert test user exists",
+          "assertRetryCount": "10",
+          "assertRetryInterval": "2000",
+          "targetFdn": "${Test-User-DN}",
+          "notResult": "false"
+        },
+        "00000000-0000-0000-0000-postcleanup1": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "00000000-0000-0000-0000-00000000gen0",
+          "actionMethod": "runTemplate",
+          "enabled": true,
+          "description": "Teardown test user",
+          "testId": "00000000-0000-0000-0000-0000tmpcleanup"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,785 @@
+{
+  "displayName": "UserApp Starter Test",
+  "connectorConfigs": {
+    "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e": {
+      "displayName": "Generic Actions",
+      "connectorClassName": "GenericActions",
+      "connectorClass": "GenericActions"
+    },
+    "c4922c0f-5b89-5d7e-0df9-4532283b58ad": {
+      "displayName": "Userapp Provisioning",
+      "connectorClassName": "UserAppConnector",
+      "connectorClass": "UserAppConnector",
+      "url": "https://172.17.2.181:8543/IDMProv",
+      "proxyUser": "uaadmin",
+      "proxyPwd": "b64~8iaCcQXEbBUS3XkCvuyU4g/QbX4I36kr"
+    },
+    "067d2a97-ce02-c5b5-aa5e-340c142ad5f0": {
+      "displayName": "eDir Connection",
+      "connectorClassName": "EDirConnector",
+      "connectorClass": "EDirConnector",
+      "host": "172.17.2.90",
+      "port": "637",
+      "useSsl": true,
+      "proxyUser": "cn=admin,ou=sa,o=system",
+      "proxyPwd": "onK75V2Qo85/LHA/B3D9uA=="
+    }
+  },
+  "tests": {
+    "2e46222e-507f-59f9-d523-3fcadf6f6d3e": {
+      "displayName": "Workflow",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {},
+      "type": "groupHeader",
+      "groupHeaderCollapsed": false,
+      "execActions": false
+    },
+    "db19ff6d-cbf3-29cc-e2f9-64e8e330c774": {
+      "displayName": "Test Approval",
+      "description": "Test Approving at an approval activity",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "48d5cee3-0b93-6415-c235-0c4ed2f2d35e": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "569bd182-a9af-fcd5-1034-73e7fbb75284",
+          "description": "Run Template - Start Workflow",
+          "exec": false
+        },
+        "c85816d3-b6dc-acd1-76d1-1835dff49a63": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertActivityComments",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "workflowProcessID": "${processid}",
+          "workflowActivityID": "Activity",
+          "expectedResults": "task assigned",
+          "description": "Wait for Approval Task",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "exec": false
+        },
+        "3a79fb29-931a-cc2f-f409-c1dfd5bba2ed": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "approveRequest",
+          "workflowProcessID": "${processid}",
+          "workflowRecipientDN": "${IDV_recipient_dn}",
+          "workflowUserDN": "cn=uaadmin,ou=sa,o=data",
+          "workflowTaskComment": "yes",
+          "attributesValues": {
+            "otherreason": [
+              "test"
+            ]
+          },
+          "workflowDN": "",
+          "variable": "",
+          "description": "Approve Request ",
+          "attributesValuesHide": false,
+          "action": "approve",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "exec": false
+        },
+        "5e94952e-dd0a-3749-5a80-93e05458573c": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertActivityComments",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "workflowProcessID": "${processid}",
+          "workflowActivityID": "Activity2",
+          "expectedResults": "approved",
+          "description": "Assert Approval Path",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "exec": false
+        }
+      },
+      "type": "test",
+      "actionSorting": true,
+      "execActions": false
+    },
+    "72d79211-eb56-ad0a-936b-af9cf015ddb4": {
+      "displayName": "Test Denial",
+      "description": "Test Denial at an approval activity",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "f85c12c5-32fa-4896-427a-006495422e77": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "569bd182-a9af-fcd5-1034-73e7fbb75284",
+          "description": "Run Template - Start Workflow",
+          "exec": false
+        },
+        "0f4293bc-e1aa-8f0b-441b-1efa783477f0": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertActivityComments",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "workflowProcessID": "${processid}",
+          "workflowActivityID": "Activity",
+          "expectedResults": "task assigned",
+          "description": "Wait for Approval Task",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "exec": false
+        },
+        "3d8baab3-6fc4-e624-b834-bde20bbd84ec": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "approveRequest",
+          "workflowProcessID": "${processid}",
+          "workflowRecipientDN": "${IDV_recipient_dn}",
+          "workflowUserDN": "cn=uaadmin,ou=sa,o=data",
+          "workflowTaskComment": "yes",
+          "attributesValues": {
+            "otherreason": [
+              "something"
+            ]
+          },
+          "workflowDN": "",
+          "variable": "",
+          "attributesValuesHide": false,
+          "action": "deny",
+          "exec": false
+        },
+        "feb0d2fc-95e6-365f-f964-082110f28e44": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertActivityComments",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "workflowProcessID": "${processid}",
+          "workflowActivityID": "Activity3",
+          "expectedResults": "Denied",
+          "description": "Assert Denial Path",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "exec": false
+        }
+      },
+      "type": "test",
+      "execActions": false
+    },
+    "60fe946f-1d9d-d250-52ec-9ff8a29dd93b": {
+      "displayName": "Test Refuse",
+      "description": "Tests Refusing at an approval step",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "7d7e8336-47ba-d205-afe1-52759ca99d4d": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "569bd182-a9af-fcd5-1034-73e7fbb75284",
+          "description": "Run Template - Start Workflow",
+          "exec": false
+        },
+        "7ff20a94-8607-dc96-2086-223d130ac76a": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertActivityComments",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "workflowProcessID": "${processid}",
+          "workflowActivityID": "Activity",
+          "expectedResults": "task assigned",
+          "description": "Wait for Task",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "exec": false
+        },
+        "75964c35-ea00-15e8-bfb9-280170f2267c": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "approveRequest",
+          "workflowProcessID": "${processid}",
+          "workflowRecipientDN": "${IDV_recipient_dn}",
+          "workflowUserDN": "cn=uaadmin,ou=sa,o=data",
+          "workflowTaskComment": "REFUSING",
+          "attributesValues": {
+            "otherreason": [
+              "something"
+            ]
+          },
+          "workflowDN": "",
+          "variable": "",
+          "description": "Refuse Request in Userapp Provisioning",
+          "attributesValuesHide": false,
+          "action": "refuse",
+          "exec": false
+        },
+        "c216f98f-8b72-7966-e72b-93832b02dcde": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertActivityComments",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "workflowProcessID": "${processid}",
+          "workflowActivityID": "Activity4",
+          "expectedResults": "Refused",
+          "description": "Assert Refusal Path",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "exec": false
+        }
+      },
+      "type": "test",
+      "execActions": false
+    },
+    "52c70dac-feae-0686-b7a5-08b15494d1fc": {
+      "displayName": "Test Approval as Proxy",
+      "description": "Test Approving at an approval activity",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "398c3bed-9dab-91f6-2714-6ac06940d6de": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "e80bf78b-9f90-33fa-dd52-9388d153cc40",
+          "description": "Run Template - Start Workflow as Proxy",
+          "exec": false
+        },
+        "2458e8ed-edd5-af9a-d19a-5c7b9884ba29": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertActivityComments",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "workflowProcessID": "${processid}",
+          "workflowActivityID": "Activity",
+          "expectedResults": "task assigned",
+          "description": "Wait for Approval Task",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "exec": false
+        },
+        "5d939a61-f56c-26e0-37c5-df581727da34": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "approveRequestAsProxy",
+          "workflowProcessID": "${processid}",
+          "workflowRecipientDN": "cn=novell,ou=users,o=data",
+          "workflowUserDN": "cn=novell,ou=users,o=data",
+          "workflowTaskComment": "yes",
+          "attributesValues": {
+            "otherreason": [
+              "test"
+            ]
+          },
+          "workflowDN": "",
+          "variable": "",
+          "description": "Approve Request the request",
+          "attributesValuesHide": false,
+          "action": "approve",
+          "exec": false
+        },
+        "00b64e3c-05fa-02f2-71a1-d9fdf7f89888": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertActivityComments",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "workflowProcessID": "${processid}",
+          "workflowActivityID": "Activity2",
+          "expectedResults": "approved",
+          "description": "Assert Approval Path",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "exec": false
+        }
+      },
+      "type": "test",
+      "execActions": false
+    },
+    "221c6e16-5ad6-aa3d-ed33-0cbff5546599": {
+      "displayName": "Roles & Resources",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {},
+      "type": "groupHeader",
+      "groupHeaderCollapsed": false,
+      "execActions": false
+    },
+    "6747096d-f740-c017-17e7-a41bec2df67b": {
+      "displayName": "Roles",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "4a9ce129-0a24-716a-ba56-b4274605a5b6": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": false,
+          "actionMethod": "comment",
+          "comment": "---- Grant -----",
+          "exec": false
+        },
+        "1af326ca-ee36-29df-395b-929f8a195514": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": true,
+          "enabled": false,
+          "actionMethod": "grantRevokeUserRole",
+          "userDn": "${Role User DN}",
+          "op": "grant",
+          "roleDn": "${Role DN}",
+          "reason": "Done by validator",
+          "description": "Grant/Revoke a Role for a User in Userapp Provisioning",
+          "exec": false
+        },
+        "58f4fade-97dc-ad8c-03ef-3a7103a3321e": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": false,
+          "actionMethod": "assertUserHasRole",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "userDn": "${Role User DN}",
+          "roleDn": "${Role DN}",
+          "notResult": "false",
+          "exec": false
+        },
+        "25cd6598-41b6-1c27-d4d6-ffb2c5096636": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": true,
+          "enabled": true,
+          "actionMethod": "getUserRoles",
+          "userFdn": "cn=novell,ou=users,o=data",
+          "variable": "roles",
+          "userDn": "${Role User DN}",
+          "description": "Get User Roles in Userapp Provisioning",
+          "exec": false
+        },
+        "46ae0a8f-b6e4-f0df-ac22-84e0879bcb28": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": false,
+          "actionMethod": "assertVariables",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "attributesValues": {
+            "${roles}": [
+              "${Role DN}"
+            ]
+          },
+          "attributesValuesHide": false,
+          "description": "Assert Variable has roles",
+          "exec": false
+        },
+        "19144ad1-52b4-d5ed-d096-df4e80e68443": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": false,
+          "actionMethod": "assertUserHasRole",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "userDn": "${Role User DN}",
+          "roleDn": "${Role DN}",
+          "notResult": "false",
+          "description": "Assert User has a Role in Userapp Provisioning",
+          "exec": false
+        },
+        "4a408be3-41f7-089e-fa0a-2eaacdd602ca": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": false,
+          "actionMethod": "assertUserHasRole",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "userDn": "${Role User DN}",
+          "roleDn": "cn=NOTEXIST,cn=System,cn=Level20,cn=RoleDefs,cn=RoleConfig,cn=AppConfig,cn=User Application Driver,cn=driverset1,o=system",
+          "notResult": "true",
+          "description": "Assert User not has a Role in Userapp Provisioning",
+          "exec": false
+        },
+        "962e3582-b32d-5a0e-b74f-76b8857ef0cd": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": false,
+          "actionMethod": "comment",
+          "comment": "----- Revoke -----",
+          "exec": false
+        },
+        "cbd38a79-ce11-5766-aa85-bb3103f771a2": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": false,
+          "actionMethod": "grantRevokeUserRole",
+          "userDn": "${Role User DN}",
+          "op": "revoke",
+          "roleDn": "${Role DN}",
+          "reason": "",
+          "description": "Revoke a Role for a User in Userapp Provisioning",
+          "exec": false
+        },
+        "a02926f6-2dc4-4cf0-bbb7-c7ccd54ca59f": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": false,
+          "actionMethod": "assertUserHasRole",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "userDn": "${Role User DN}",
+          "roleDn": "${Role DN}",
+          "notResult": "true",
+          "description": "Assert User not has Role in Userapp Provisioning",
+          "exec": false
+        }
+      },
+      "type": "test",
+      "execActions": false,
+      "actionSorting": true
+    },
+    "852702bf-8cb4-ae19-cb73-0d4f89eb88a3": {
+      "displayName": "Resources",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "949326e3-f06a-543e-68c8-cd1d2d49a3cc": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": false,
+          "actionMethod": "comment",
+          "comment": "---- Grant -----",
+          "description": "Comment",
+          "exec": false
+        },
+        "04e6409c-6c61-2974-a5a9-7005adb95a4f": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": false,
+          "actionMethod": "grantRevokeUserResource",
+          "userDn": "${Role User DN}",
+          "op": "grant",
+          "roleDn": "${Resource DN}",
+          "reason": "Test Validator grant",
+          "resourceDn": "${Resource DN}",
+          "requestParamsData": {
+            "param1": [
+              "HI"
+            ]
+          },
+          "requestParamsDataHide": false,
+          "variable": "correlationid",
+          "correlationId": "custom correlation id",
+          "sep1": "",
+          "exec": false
+        },
+        "9dc77789-fe46-86f6-87a8-5f51402067f9": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": false,
+          "actionMethod": "assertUserHasResourceAssigned",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "userDn": "${Role User DN}",
+          "roleDn": "${Resource DN}",
+          "notResult": "false",
+          "resourceDn": "${Resource DN}",
+          "exec": false
+        },
+        "6dfb0971-12d0-f7f9-a82a-0244bf7c2fe7": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": true,
+          "enabled": true,
+          "actionMethod": "getUserResources",
+          "userDn": "${Role User DN}",
+          "variable": "resources",
+          "exec": false
+        },
+        "b3c81861-3124-fc2d-b6da-730ce976b45a": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": false,
+          "actionMethod": "assertVariables",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "attributesValues": {
+            "${resources}": [
+              "${Resource DN}"
+            ]
+          },
+          "attributesValuesHide": false,
+          "description": "Assert Variable has resources",
+          "exec": false
+        },
+        "361d5b86-0677-6a50-9027-b8017e166413": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": false,
+          "actionMethod": "comment",
+          "comment": "----- Revoke -----",
+          "description": "Comment",
+          "exec": false
+        },
+        "08fcfb43-4b42-a77c-f3fc-ec5bb4394784": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": false,
+          "actionMethod": "grantRevokeUserResource",
+          "userDn": "${Role User DN}",
+          "op": "revoke",
+          "resourceDn": "${Resource DN}",
+          "reason": "Test Validator revoke",
+          "requestParamsData": {
+            "Test Form Field 1": [
+              "HO"
+            ]
+          },
+          "requestParamsDataHide": false,
+          "variable": "",
+          "correlationId": "",
+          "sep1": "",
+          "exec": false
+        },
+        "faa38894-6c8c-11bb-de37-8a824cfeaf3f": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": false,
+          "enabled": false,
+          "actionMethod": "assertUserHasResourceAssigned",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "userDn": "${Role User DN}",
+          "roleDn": "${Resource DN}",
+          "notResult": "true",
+          "resourceDn": "${Resource DN}",
+          "description": "Assert User not has Resource Assigned in Userapp Provisioning",
+          "exec": false
+        }
+      },
+      "type": "test",
+      "execActions": false,
+      "actionSorting": true
+    },
+    "569bd182-a9af-fcd5-1034-73e7fbb75284": {
+      "displayName": "Start Workflow",
+      "description": "",
+      "templateTest": true,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "type": "action",
+      "actions": {
+        "b39bcc06-7ffd-64d7-4198-db0e060ff0b6": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": true,
+          "enabled": true,
+          "workflowDN": "cn=testUserappConnector,${IDV_workflow_location}",
+          "workflowUserDN": "cn=uaadmin,ou=sa,o=data",
+          "workflowUserPassword": "novell",
+          "workflowRecipientDN": "${IDV_recipient_dn}",
+          "attributesValues": {
+            "dnfield": [
+              "${IDV_recipient_dn}"
+            ],
+            "textfield": [
+              "somevalue"
+            ],
+            "reason": [
+              "Some reason"
+            ]
+          },
+          "actionMethod": "startWorkflow",
+          "variable": "processid",
+          "description": "Start Workflow with form fields",
+          "attributesValuesHide": false,
+          "exec": false
+        }
+      },
+      "actionSorting": true,
+      "execActions": false
+    },
+    "e80bf78b-9f90-33fa-dd52-9388d153cc40": {
+      "displayName": "Start Workflow as Proxy",
+      "description": "",
+      "templateTest": true,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "type": "action",
+      "actions": {
+        "7d16fba5-614f-af2d-ae1b-61cbb7208aa7": {
+          "category": "TEST",
+          "connectorInstanceId": "c4922c0f-5b89-5d7e-0df9-4532283b58ad",
+          "expanded": true,
+          "enabled": true,
+          "workflowDN": "cn=testUserappConnector,${IDV_workflow_location}",
+          "workflowUserDN": "cn=uaadmin,ou=sa,o=data",
+          "workflowUserPassword": "novell",
+          "workflowRecipientDN": "cn=novell,ou=users,o=data",
+          "attributesValues": {
+            "dnfield": [
+              "${IDV_recipient_dn}"
+            ],
+            "textfield": [
+              "somevalue"
+            ],
+            "reason": [
+              "Some reason"
+            ]
+          },
+          "actionMethod": "startWorkflowAsProxy",
+          "variable": "processid",
+          "description": "Start Workflow with form fields",
+          "attributesValuesHide": false,
+          "proxyDN": "cn=novell,ou=users,o=data",
+          "exec": false
+        }
+      },
+      "execActions": false,
+      "actionSorting": true
+    }
+  },
+  "scriptVersion": "12",
+  "variableData": {
+    "variableGroupActive": "DEV",
+    "variableGroups": [
+      "DEV",
+      "PROD",
+      "QA"
+    ],
+    "variableNames": [
+      "",
+      "comments",
+      "correlationid",
+      "IDV_recipient_dn",
+      "IDV_workflow_location",
+      "processid",
+      "Resource DN",
+      "resources",
+      "Role DN",
+      "Role User DN",
+      "roles"
+    ],
+    "variableValues": [
+      [
+        "",
+        "{ [ { 'text' : 'Validator' , 'user' : '{Enter author name here}' }  , { 'text' : 'Forwarded' , 'user' : 'IDMProv' }  ] }",
+        "custom correlation id",
+        "cn=uaadmin,ou=sa,o=data",
+        "cn=RequestDefs,cn=AppConfig,cn=User Application Driver,cn=driverset1,o=system",
+        "e9944129e7be4f94bb68674da3e4f7bc",
+        "cn=Test Resource,cn=ResourceDefs,cn=RoleConfig,cn=AppConfig,cn=User Application Driver,cn=driverset1,o=system",
+        "[\"cn=Test Resource,cn=ResourceDefs,cn=RoleConfig,cn=AppConfig,cn=User Application Driver,cn=driverset1,o=system\"]",
+        "cn=PartsDirector,cn=Level30,cn=RoleDefs,cn=RoleConfig,cn=AppConfig,cn=User Application Driver,cn=driverset1,o=system",
+        "cn=TEST1,ou=users,o=data",
+        "[\"cn=PartsDirector,cn=Level30,cn=RoleDefs,cn=RoleConfig,cn=AppConfig,cn=User Application Driver,cn=driverset1,o=system\"]"
+      ],
+      [
+        "",
+        null,
+        "",
+        "cn=uaadmin,ou=sa,o=data",
+        "cn=RequestDefs,cn=AppConfig,cn=User Application Driver,cn=driverset1,o=system",
+        null,
+        "cn=Test Resource,cn=ResourceDefs,cn=RoleConfig,cn=AppConfig,cn=User Application Driver,cn=driverset1,o=system",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "",
+        null,
+        "",
+        "cn=uaadmin,ou=sa,o=data",
+        "cn=RequestDefs,cn=AppConfig,cn=User Application Driver,cn=driverset1,o=system",
+        null,
+        "cn=Test Resource,cn=ResourceDefs,cn=RoleConfig,cn=AppConfig,cn=User Application Driver,cn=driverset1,o=system",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ]
+  }
+}

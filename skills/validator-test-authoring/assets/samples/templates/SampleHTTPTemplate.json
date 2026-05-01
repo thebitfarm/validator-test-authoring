@@ -1,0 +1,266 @@
+{
+  "displayName": "Sample HTTP Tests",
+  "connectorConfigs": {
+    "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e": {
+      "displayName": "Generic Actions",
+      "connectorClassName": "GenericActions",
+      "connectorClass": "GenericActions"
+    },
+    "db750b66-e5f5-87e6-7439-039caaca2ef6": {
+      "displayName": "Novell.com",
+      "connectorClassName": "HTTPConnector",
+      "connectorClass": "HTTPConnector",
+      "url": "http://www.novell.com",
+      "proxyUser": "",
+      "proxyPwd": "",
+      "conn_globalHeaders": {},
+      "conn_headers": {},
+      "conn_requestParams": {}
+    },
+    "e7910c4d-d815-e327-c074-faee5edee22f": {
+      "displayName": "Yahoo Stock Info",
+      "connectorClassName": "HTTPConnector",
+      "connectorClass": "HTTPConnector",
+      "url": "http://ichart.finance.yahoo.com/table.csv",
+      "proxyUser": "",
+      "proxyPwd": "",
+      "conn_globalHeaders": {},
+      "conn_headers": {},
+      "conn_requestParams": {}
+    },
+    "f4d1f841-2713-0adf-421e-61c6e3204fcc": {
+      "displayName": "UserAppSOAP",
+      "connectorClassName": "HTTPConnector",
+      "connectorClass": "HTTPConnector",
+      "url": "${UserAppServer}",
+      "proxyUser": "${UserAppProxyUser}",
+      "proxyPwd": "${UserAppProxyUserPassword}",
+      "conn_globalHeaders": {},
+      "conn_headers": {},
+      "conn_requestParams": {}
+    },
+    "03738459-3eae-2c7a-3aa1-4aceffa45dfe": {
+      "displayName": "blahHeaderTest",
+      "connectorClassName": "HTTPConnector",
+      "connectorClass": "HTTPConnector",
+      "url": "http://www.novell.com",
+      "proxyUser": "",
+      "proxyPwd": "",
+      "conn_globalHeaders": {
+        "thisHeaderKey": [
+          "thisHeaderValue"
+        ],
+        "blahHeader": [
+          "tacovalue"
+        ]
+      },
+      "conn_headers": {},
+      "conn_requestParams": {}
+    }
+  },
+  "tests": {
+    "fad2674a-9add-5097-2e70-31cc7fa57cf9": {
+      "displayName": "Check for Linux content in Novell.com",
+      "description": "",
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "aef4bb3a-9677-d87b-d42e-440789c9ea52": {
+          "category": "TEST",
+          "connectorInstanceId": "db750b66-e5f5-87e6-7439-039caaca2ef6",
+          "expanded": true,
+          "actionMethod": "assertGetResults",
+          "enabled": true,
+          "httpMethodGet": "GET",
+          "urlSuffix": "",
+          "data": "",
+          "expectedResults": "Linux",
+          "description": "Test if Linux is discussed on Novell.com",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "contentType": "default",
+          "title1": "",
+          "headerData": {},
+          "headerDataHide": false,
+          "sep-1": "",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "httpResponseCode": "",
+          "sep-2": ""
+        },
+        "38064e0e-9a48-0607-a667-172eddc86ef8": {
+          "category": "TEST",
+          "connectorInstanceId": "db750b66-e5f5-87e6-7439-039caaca2ef6",
+          "expanded": false,
+          "actionMethod": "assertGetResults",
+          "enabled": true,
+          "httpMethodGet": "GET",
+          "urlSuffix": "",
+          "data": "",
+          "expectedResults": ".* Linux .*",
+          "description": "Test if Linux is discussed on Novell.com using RegEx",
+          "compOper": "contains",
+          "compMode": "regex",
+          "contentType": "default",
+          "title1": "",
+          "headerData": {},
+          "headerDataHide": false,
+          "sep-1": "",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "httpResponseCode": "",
+          "sep-2": ""
+        }
+      },
+      "type": "test",
+      "actionSorting": true
+    },
+    "73a81128-7caa-3218-fb45-a8d03942562e": {
+      "displayName": "Check stock info ",
+      "description": "",
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "75757efe-d322-f8ba-6446-af5814046bb0": {
+          "category": "TEST",
+          "connectorInstanceId": "e7910c4d-d815-e327-c074-faee5edee22f",
+          "expanded": true,
+          "actionMethod": "assertGetResults",
+          "enabled": true,
+          "httpMethodGet": "GET",
+          "urlSuffix": "?s=GOOG",
+          "data": "",
+          "expectedResults": "2015-05",
+          "description": "Load stock info into Var",
+          "variable": "TestVar",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "contentType": "default",
+          "title1": "",
+          "headerData": {},
+          "headerDataHide": false,
+          "sep-1": "",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "httpResponseCode": "",
+          "sep-2": ""
+        },
+        "77935176-895c-42b2-2a47-43f917464484": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "echo",
+          "message": "${TestVar}"
+        }
+      },
+      "type": "test",
+      "actionSorting": true
+    },
+    "434219ac-60b3-1099-f9c8-aff0aac42acf": {
+      "displayName": "Check stock info and load into Var",
+      "description": "",
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "4f3634e3-3c4f-91b9-e5e4-d5f6452b7563": {
+          "category": "TEST",
+          "connectorInstanceId": "e7910c4d-d815-e327-c074-faee5edee22f",
+          "expanded": true,
+          "actionMethod": "getGetResultsIntoVar",
+          "enabled": true,
+          "httpMethodGet": "GET",
+          "urlSuffix": "?s=GOOG",
+          "data": "",
+          "expectedResults": "2012-05",
+          "description": "Load stock info into Var",
+          "variable": "TestVar",
+          "contentType": "default",
+          "title1": "",
+          "headerData": {},
+          "headerDataHide": false,
+          "sep-1": ""
+        },
+        "c8e7e5a4-c96d-2038-f311-7007f0d91c19": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "echo",
+          "message": "${TestVar}"
+        }
+      },
+      "type": "test",
+      "actionSorting": true
+    },
+    "e9a68e3b-f009-7e9b-0842-468dd63c7682": {
+      "displayName": "Send a SOAP request",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "b1046147-aef9-2dee-7a86-7e0fcf7ee1da": {
+          "category": "TEST",
+          "connectorInstanceId": "f4d1f841-2713-0adf-421e-61c6e3204fcc",
+          "expanded": true,
+          "enabled": true,
+          "actionMethod": "assertPostResults",
+          "httpMethodPost": "POST",
+          "urlSuffix": "",
+          "data": "<SOAP-ENV:Envelope xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/'\n                   xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>\n    <SOAP-ENV:Body>\n        <ns1:startRequest xmlns=\"http://www.novell.com/provisioning/service\"\n                          xmlns:ns1=\"http://www.novell.com/provisioning/service\">\n            <arg0>CN=blah123,CN=RequestDefs,CN=AppConfig,CN=User Application Driver,CN=driverset1,O=system</arg0>\n            <arg1>cn=bfox2,ou=users,o=data</arg1>\n            <arg2>\n                <dataitem>\n                    <name>reason</name>\n                    <value>\n                        <string>blah</string>\n                    </value>\n                </dataitem>\n            </arg2>\n        </ns1:startRequest>\n    </SOAP-ENV:Body>\n</SOAP-ENV:Envelope>",
+          "expectedResults": ".*500.*",
+          "compOper": "not contains",
+          "compMode": "regex",
+          "contentType": "default",
+          "headerData": {
+            "SOAPAction": [
+              "http://www.novell.com/provisioning/service/start"
+            ]
+          },
+          "headerDataHide": false,
+          "title1": "",
+          "title2": "",
+          "formData": {},
+          "formDataHide": false,
+          "sep-1": "",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "httpResponseCode": "",
+          "sep-2": ""
+        }
+      },
+      "type": "test",
+      "actionSorting": true
+    }
+  },
+  "scriptVersion": "11",
+  "variableData": {
+    "variableGroupActive": "default",
+    "variableGroups": [
+      "default"
+    ],
+    "variableNames": [
+      "TestVar",
+      "UserAppProxyUser",
+      "UserAppProxyUserPassword",
+      "UserAppServer"
+    ],
+    "variableValues": [
+      [
+        "Date,Open,High,Low,Close,Volume,Adj Close558.46252",
+        "cn=admin,o=novell",
+        "b64~E2cRxqsWP4friDWagFdKLw==",
+        "http://172.17.2.91:8180/IDMProv/provisioning/service?wsdl"
+      ]
+    ]
+  }
+}

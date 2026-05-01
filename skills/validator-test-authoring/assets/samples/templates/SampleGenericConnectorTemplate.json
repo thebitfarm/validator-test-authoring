@@ -1,0 +1,737 @@
+{
+  "displayName": "Starter Tests Generic Connector",
+  "variableData": {
+    "variableGroupActive": "DEV",
+    "variableGroups": [
+      "DEV",
+      "PROD",
+      "QA"
+    ],
+    "variableNames": [
+      "b64test",
+      "JSON Object",
+      "Result",
+      "Todays date",
+      "Todays date plus 2 days",
+      "UserName",
+      "XML Data",
+      "XML Result"
+    ],
+    "variableValues": [
+      [
+        "This is a semi-secret message!",
+        "{\"name\":\"Betty Rubble\",\"age\":\"9998\"}",
+        "10",
+        "20160510124705-0600",
+        "05/12/2016 12:47:05 PM",
+        "TestUser2",
+        "<xmldata><person type=\"caveman\"><name>Fred Flintstone</name></person></xmldata>",
+        "caveman"
+      ],
+      [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "TestUser",
+        "",
+        ""
+      ],
+      [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "TestUser",
+        "",
+        ""
+      ]
+    ]
+  },
+  "connectorConfigs": {
+    "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e": {
+      "displayName": "Generic Actions",
+      "connectorClassName": "GenericActions",
+      "connectorClass": "GenericActions"
+    }
+  },
+  "tests": {
+    "6ecc7fb6-c2af-a454-c9a7-7cf7739c7769": {
+      "actions": {
+        "24ec8642-c684-89a7-065f-dcb13bce433b": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "base64Encode",
+          "attributeValue": "This is a semi-secret message!",
+          "variable": "b64test",
+          "exec": false
+        },
+        "f5914bc8-837f-4f6b-8627-649bc182cd89": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "base64Decode",
+          "attributeValue": "${b64test}",
+          "variable": "b64test",
+          "exec": false
+        }
+      },
+      "enabled": true,
+      "displayName": "Base64",
+      "description": "Demonstrates how to base64 encode and decode values in variables",
+      "templateTest": false,
+      "type": "test",
+      "groupHeaderCollapsed": false,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "execActions": false
+    },
+    "9b07b4f0-89c6-88db-d601-6014fb78f7fe": {
+      "actions": {
+        "4852c376-5499-6584-cdfe-13110ffa3eab": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "calculateDate",
+          "sep-1": "",
+          "sourceVariableExpanded": "",
+          "sourceFormat": "CUSTOM",
+          "sep-2": "",
+          "operation": "ADD",
+          "unitValue": "2",
+          "unit": "DAY",
+          "sep-3": "",
+          "destFormat": "CUSTOM",
+          "destVariable": "Todays date plus 2 days",
+          "description": "Calculate Today's Date",
+          "sourceFormatCustom": "MM/dd/yyyy hh:mm:ss a",
+          "destFormatCustom": "MM/dd/yyyy hh:mm:ss a",
+          "exec": false
+        },
+        "26958e17-627f-33a9-83b7-b0d8310c8bcf": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "calculateDate",
+          "sep-1": "",
+          "sourceVariableExpanded": "${Todays date plus 2 days}",
+          "sourceFormat": "CUSTOM",
+          "sep-2": "",
+          "operation": "SUBTRACT",
+          "unitValue": "2",
+          "unit": "DAY",
+          "sep-3": "",
+          "destFormat": "LDAP",
+          "destVariable": "Todays date",
+          "description": "Calculate Date back to Today's Date",
+          "sourceFormatCustom": "MM/dd/yyyy hh:mm:ss a",
+          "destFormatCustom": "MM/dd/yyyy hh:mm:ss a",
+          "exec": false
+        }
+      },
+      "enabled": true,
+      "displayName": "Calculate Date",
+      "description": "Shows date conversion and calculation",
+      "templateTest": false,
+      "type": "test",
+      "groupHeaderCollapsed": false,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "execActions": false
+    },
+    "80fc9aaf-74ae-e152-5d55-968397f7ff8a": {
+      "actions": {
+        "d22c65d0-d932-1b7e-7fe5-99f68ee3a1e5": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "attributesValues": {
+            "UserName": [
+              "TestUser"
+            ]
+          },
+          "exec": false
+        },
+        "b31a5779-dd44-c348-d5cf-aeab0a4c64b6": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "calculateVariable",
+          "variableExpanded": "${UserName}",
+          "calcValue": "1",
+          "variable": "UserName",
+          "description": "Increment Variable",
+          "exec": false
+        },
+        "fa83b34c-1793-847e-68a0-d93362b2503d": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "calculateVariable",
+          "variableExpanded": "${UserName}",
+          "calcValue": "1",
+          "variable": "UserName",
+          "description": "Increment Variable Again",
+          "exec": false
+        },
+        "36fb45e3-28aa-0846-bd44-ed7eb4352e1c": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "echo",
+          "message": "Username is: ${UserName}",
+          "description": "Show calculated username",
+          "exec": false
+        }
+      },
+      "enabled": true,
+      "displayName": "Calculate Variable",
+      "description": "Increment the end of a variable to create a unique username:  e.g.  TestUser1 becomes TestUser2",
+      "templateTest": false,
+      "type": "test",
+      "groupHeaderCollapsed": false,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "execActions": false
+    },
+    "f274f15f-f385-438d-d795-729bdbe953a5": {
+      "actions": {
+        "b9881d0f-c97d-c9b4-1ac6-dc92ba19096c": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "attributesValues": {
+            "JSON Object": [
+              "{ \"person\": {\"name\":\"Barney Rubble\", \"age\":\"10000\"  , } }"
+            ]
+          },
+          "attributesValuesHide": false,
+          "exec": false
+        },
+        "4b6660d7-7b20-c264-00d7-5bdde731d653": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "getJsonValue",
+          "variableExpanded": "${JSON Object}",
+          "jsonExpression": "person.name",
+          "variable": "Result",
+          "description": "Get simple value",
+          "exec": false
+        },
+        "ec84e3a4-e989-0d7e-8064-86ae9616a681": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertVariables",
+          "compOper": "equals",
+          "compMode": "case ignore",
+          "attributesValues": {
+            "${Result}": [
+              "Barney Rubble"
+            ]
+          },
+          "attributesValuesHide": false,
+          "exec": false
+        },
+        "607af42f-e0bc-3bf5-ff1a-c9aa693a4a67": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "comment",
+          "comment": "------------------------------------------------------------------------------------------------",
+          "exec": false
+        },
+        "e780911a-b4dc-0673-692c-3aaee7b3910e": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "description": "Set Variable",
+          "attributesValues": {
+            "JSON Object": [
+              "{ \"person\":[ {\"name\":\"Barney Rubble\", \"age\":\"10000\" }, {\"name\":\"Betty Rubble\", \"age\":\"9998\"}] }"
+            ]
+          },
+          "attributesValuesHide": false,
+          "exec": false
+        },
+        "67c2c944-2fc3-0f29-c6c2-77877cb0d482": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "getJsonValue",
+          "variableExpanded": "${JSON Object}",
+          "jsonExpression": "person[1].name",
+          "variable": "Result",
+          "description": "Get value in array",
+          "exec": false
+        },
+        "4e707cb2-5610-7d2e-7571-7efe2573ac5a": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertVariables",
+          "compOper": "equals",
+          "compMode": "case ignore",
+          "description": "Assert Variable",
+          "attributesValues": {
+            "${Result}": [
+              "Betty Rubble"
+            ]
+          },
+          "attributesValuesHide": false,
+          "exec": false
+        },
+        "b449ab3b-e6f3-dd85-ccaf-0a23255aab76": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "comment",
+          "comment": "------------------------------------------------------------------------------------------------",
+          "description": "Comment",
+          "exec": false
+        },
+        "fafa6297-ebee-8f63-ef72-366eb9247471": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "description": "Set Variable",
+          "attributesValues": {
+            "JSON Object": [
+              "{ \"person\":[ {\"name\":\"Barney Rubble\", \"age\":\"10000\" }, {\"name\":\"Betty Rubble\", \"age\":\"9998\"}] }"
+            ]
+          },
+          "attributesValuesHide": false,
+          "exec": false
+        },
+        "217db1bf-a348-09d6-eae0-2ef42576699f": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "getJsonValue",
+          "variableExpanded": "${JSON Object}",
+          "jsonExpression": "person[1]",
+          "variable": "JSON Object",
+          "description": "Get json object from original object",
+          "exec": false
+        },
+        "b59fc92c-aadf-9d2a-330e-ef41a1f9f0d0": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "getJsonValue",
+          "variableExpanded": "${JSON Object}",
+          "jsonExpression": "name",
+          "variable": "Result",
+          "description": "Get value from subobject",
+          "exec": false
+        },
+        "e6a0f5ce-31f6-ff54-bbd6-8032f529b0e2": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertVariables",
+          "compOper": "equals",
+          "compMode": "case ignore",
+          "description": "Assert Variable",
+          "attributesValues": {
+            "${Result}": [
+              "Betty Rubble"
+            ]
+          },
+          "attributesValuesHide": false,
+          "exec": false
+        }
+      },
+      "enabled": true,
+      "displayName": "Json",
+      "description": "",
+      "templateTest": false,
+      "groupHeaderCollapsed": false,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "type": "test",
+      "execActions": false
+    },
+    "31d2d632-c330-398d-7e49-493388a8bc53": {
+      "actions": {
+        "03702d52-e62e-883b-eaad-49d0d7f07d6e": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "comment",
+          "comment": "------------------------------------------------------------------",
+          "description": "Comment",
+          "exec": false
+        },
+        "06b6a9a8-d808-321c-6b77-c4ebfc8a7578": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "description": "Call a Javascript function in the global library (see Test Suite tab -> Javascript Library)",
+          "attributesValues": {
+            "Result": [
+              "js:{getGreeting()}"
+            ]
+          },
+          "attributesValuesHide": false,
+          "exec": false
+        },
+        "902f083e-a64f-1236-c4f5-a4487d1f6a84": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertVariables",
+          "compOper": "equals",
+          "compMode": "case ignore",
+          "description": "Check result",
+          "attributesValues": {
+            "${Result}": [
+              "Hello World"
+            ]
+          },
+          "attributesValuesHide": false,
+          "exec": false
+        },
+        "d508cec3-6465-fa48-568e-49dfcfa297ee": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "comment",
+          "comment": "------------------------------------------------------------------",
+          "exec": false
+        },
+        "1368d037-86f8-07d8-93f2-c024902be956": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "description": "Call a Javascript function in the Template Library and Set Variable",
+          "attributesValues": {
+            "Result": [
+              "js:{ encryptData(\"This is a string\"); }"
+            ]
+          },
+          "attributesValuesHide": false,
+          "exec": false
+        },
+        "6a3eb7cb-9874-6c68-2ea1-2d01a942d2bd": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "description": "Call a Javascript function with a variable as a parameter (Note the quotes around the variable)",
+          "attributesValues": {
+            "Result": [
+              "js:{ decryptData(\"${Result}\"); }"
+            ]
+          },
+          "attributesValuesHide": false,
+          "exec": false
+        },
+        "4e3dd08d-58c8-e15d-44ef-7c3c874411d3": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertVariables",
+          "compOper": "equals",
+          "compMode": "case ignore",
+          "description": "Check result",
+          "attributesValues": {
+            "${Result}": [
+              "This is a string"
+            ]
+          },
+          "attributesValuesHide": false,
+          "exec": false
+        },
+        "c6426b2b-0505-a3a2-9cfd-cfba491c4b2e": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "comment",
+          "comment": "------------------------------------------------------------------",
+          "description": "Comment",
+          "exec": false
+        },
+        "fdb8556d-c8a3-df8a-007e-e7a4609adde6": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "attributesValues": {
+            "JSON Object": [
+              "{\"name\":\"Betty Rubble\",\"age\":\"9998\"}"
+            ]
+          },
+          "attributesValuesHide": false,
+          "exec": false
+        },
+        "6aa4daeb-7050-5e9a-e112-bbc2f747de29": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "attributesValues": {
+            "Result": [
+              "js:{ getProperty(${JSON Object}, \"age\") }"
+            ]
+          },
+          "attributesValuesHide": false,
+          "description": "Call Javascript function passing a Json object as a parameter",
+          "exec": false
+        },
+        "bcd29d94-618a-d0a6-2629-d505f0a5bf80": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertVariables",
+          "attributesValues": {
+            "${Result}": [
+              "9998"
+            ]
+          },
+          "attributesValuesHide": false,
+          "description": "Assert result",
+          "compOper": "equals",
+          "compMode": "case ignore",
+          "exec": false
+        },
+        "fff4f4e6-653e-b804-4592-035cacac3ad4": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "comment",
+          "comment": "------------------------------------------------------------------",
+          "description": "Comment",
+          "exec": false
+        },
+        "83c73689-091f-7453-b02c-dae8b02796fb": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "attributesValues": {
+            "Result": [
+              "js:{ numberDemo(10.1) }"
+            ]
+          },
+          "attributesValuesHide": false,
+          "description": "Return a Javascript number (it returns integers as decimal)",
+          "exec": false
+        },
+        "4ff71e81-776e-6da8-2f0b-56e50157754a": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertVariables",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "attributesValues": {
+            "${Result}": [
+              "10.1"
+            ]
+          },
+          "attributesValuesHide": false,
+          "exec": false
+        },
+        "579db55c-2da2-1981-47fc-dd4cf2756927": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "attributesValues": {
+            "Result": [
+              "js:{ Number(${Result}).toFixed(0) }"
+            ]
+          },
+          "attributesValuesHide": false,
+          "description": "Convert real number to integer",
+          "exec": false
+        },
+        "57dbd462-2647-16f0-85a8-647f0d57a108": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertVariables",
+          "compOper": "equals",
+          "compMode": "case ignore",
+          "attributesValues": {
+            "${Result}": [
+              "10"
+            ]
+          },
+          "attributesValuesHide": false,
+          "exec": false
+        },
+        "ce80d714-1b67-2b6e-c4ce-f076ccd856f7": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "comment",
+          "comment": "------------------------------------------------------------------",
+          "description": "Comment",
+          "exec": false
+        },
+        "2f441f0f-7f73-3df5-c056-39ffda7cd93c": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "echo",
+          "message": "js:{ consolePrint(\"Here is a variable value: ${Result}\") }",
+          "description": "Print to Validator console",
+          "exec": false
+        }
+      },
+      "enabled": true,
+      "displayName": "Javascript",
+      "description": "Show various uses of Javascript.   Shows use of a Javascript Library template.",
+      "templateTest": false,
+      "type": "test",
+      "groupHeaderCollapsed": false,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "execActions": false,
+      "actionSorting": true
+    },
+    "7c72d822-4cd8-5046-b738-2025204e3e5c": {
+      "actions": {
+        "a451009d-5eab-6fa5-30f1-0c45311d0bd6": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": true,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "attributesValues": {
+            "XML Data": [
+              "<xmldata><person type=\"caveman\"><name>Fred Flintstone</name></person></xmldata>"
+            ]
+          },
+          "attributesValuesHide": false,
+          "exec": false
+        },
+        "fc6bc921-b79f-97a7-0646-ffcdf9cf3751": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "getXPathValue",
+          "variableExpanded": "${XML Data}",
+          "xPathExpression": "//person/name",
+          "variable": "XML Result",
+          "description": "Get element value",
+          "exec": false
+        },
+        "3ca4b8c1-1695-ddd1-3792-775f617f7541": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertVariables",
+          "compOper": "equals",
+          "compMode": "case ignore",
+          "description": "Check to see if we got the name",
+          "attributesValues": {
+            "${XML Result}": [
+              "Fred Flintstone"
+            ]
+          },
+          "attributesValuesHide": false,
+          "exec": false
+        },
+        "2efd84b0-308d-8f17-d33d-99936947d0c2": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "getXPathValue",
+          "variableExpanded": "${XML Data}",
+          "xPathExpression": "//person/@type",
+          "variable": "XML Result",
+          "description": "Get attribute value",
+          "exec": false
+        },
+        "6d8a8dd8-5796-49a6-cd42-a1ea90b68e88": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertVariables",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "description": "Check to see if we got the attribute",
+          "attributesValues": {
+            "${XML Result}": [
+              "caveman"
+            ]
+          },
+          "attributesValuesHide": false,
+          "exec": false
+        }
+      },
+      "enabled": true,
+      "displayName": "XPath",
+      "description": "",
+      "templateTest": false,
+      "type": "test",
+      "groupHeaderCollapsed": false,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "execActions": false
+    }
+  },
+  "jsLibrary": "// You can import any Java package from jars placed in lib/ext\nimportPackage(org.jasypt.util.text);\n\nvar encKey = \"My Secret Encryption Password\";\n\nfunction encryptData(data) {\n    var enc = new BasicTextEncryptor();\n    enc.setPassword(encKey);\n    return enc.encrypt(data);\n}\n\nfunction decryptData(data) {\n    var enc = new BasicTextEncryptor();\n    enc.setPassword(encKey);return enc.decrypt(data);\n}\n\nfunction getGreeting() {\n    return \"Hello World\";\n}\n\n// get the property of an object\nfunction getProperty(jsonObj, propertyName) {\n    return jsonObj[propertyName];\n}\n\n// return a number\nfunction numberDemo(num) {\n    return num;\n}\n\n// print to Validator server console\nfunction consolePrint(message) {\n    println(message);\n}",
+  "scriptVersion": "11"
+}

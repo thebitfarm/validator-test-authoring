@@ -1,0 +1,146 @@
+{
+  "displayName": "Starter Execute Tests",
+  "connectorConfigs": {
+    "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e": {
+      "displayName": "Generic Actions",
+      "connectorClassName": "GenericActions",
+      "connectorClass": "GenericActions"
+    },
+    "387ec6ac-61c0-c14a-958f-5a0d4380330e": {
+      "displayName": "Execute Connector",
+      "connectorClassName": "ExecuteConnector",
+      "connectorClass": "ExecuteConnector"
+    }
+  },
+  "tests": {
+    "3ba474f3-fa63-6e94-7a5e-c6d7cd899f34": {
+      "displayName": "Run Windows interal shell command",
+      "description": "",
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "712753a6-132d-e0cf-dd3c-8c3688373e8a": {
+          "category": "TEST",
+          "connectorInstanceId": "387ec6ac-61c0-c14a-958f-5a0d4380330e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "getExecuteResultIntoVar",
+          "executeCommand": "cmd /c echo blah",
+          "variable": "testVar"
+        },
+        "b3336568-4e54-622d-6f3a-2a16928db5e1": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "echo",
+          "message": "${testVar}"
+        },
+        "19de43e9-d3d7-91f4-3661-e42f269efed1": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertVariables",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "attributesValues": {}
+        }
+      },
+      "templateTest": false,
+      "type": "test"
+    },
+    "e89f2386-0e8c-7fd3-0c9d-6744ede2b623": {
+      "displayName": "Run Linux/Mac Command",
+      "description": "",
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "6b4679a9-7db1-8ea7-2dbb-6af5f9948917": {
+          "category": "TEST",
+          "connectorInstanceId": "387ec6ac-61c0-c14a-958f-5a0d4380330e",
+          "expanded": false,
+          "actionMethod": "assertExecuteResults",
+          "enabled": true,
+          "executeCommand": "ls /",
+          "expectedResults": "bin",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000"
+        }
+      },
+      "templateTest": false,
+      "type": "test"
+    },
+    "7a12b453-1827-f895-5a8c-1593fc9d793b": {
+      "displayName": "Run Windows Batch File",
+      "description": "Create example.bat at the root of C:.  It should look like the following:\n\n@echo Param 1: %1%\n@echo Param 2: %2%\n@echo Param 3: %3%\n",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "95f959d1-60da-eddf-5941-32034727945c": {
+          "category": "TEST",
+          "connectorInstanceId": "387ec6ac-61c0-c14a-958f-5a0d4380330e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertExecuteResults",
+          "executeCommand": "c:/example.bat one two three",
+          "expectedResults": "three",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000"
+        }
+      },
+      "type": "test"
+    },
+    "108874a1-141e-2509-8d99-8b2ab81801d8": {
+      "displayName": "Run Linux Shell Script",
+      "description": "Create example.sh in /tmp and make it executable.  It should contain the following:\n\necho $1\necho $2\necho $3\n",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "d1149c70-5f2e-9c67-5c84-47cdec3f0b91": {
+          "category": "TEST",
+          "connectorInstanceId": "387ec6ac-61c0-c14a-958f-5a0d4380330e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertExecuteResults",
+          "executeCommand": "/tmp/example.sh one two three",
+          "expectedResults": "three",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000"
+        }
+      },
+      "type": "test"
+    }
+  },
+  "scriptVersion": "11",
+  "variableData": {
+    "variableGroupActive": "default",
+    "variableGroups": [
+      "default"
+    ],
+    "variableNames": [
+      "testVar"
+    ],
+    "variableValues": [
+      [
+        "blah"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,750 @@
+{
+  "displayName": "MSSQL Connector Starter Tests",
+  "connectorConfigs": {
+    "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e": {
+      "displayName": "Generic Actions",
+      "connectorClassName": "GenericActions",
+      "connectorClass": "GenericActions"
+    },
+    "b913be55-ae8a-3451-5186-9490c38b0fca": {
+      "displayName": "IDV",
+      "connectorClassName": "EDirConnector",
+      "connectorClass": "EDirConnector",
+      "host": "${IDV-Conn-Host}",
+      "port": "${IDV-Conn-Proxy-User-Port}",
+      "useSsl": true,
+      "proxyUser": "${IDV-Conn-Proxy-User}",
+      "proxyPwd": "${IDV-Conn-Proxy-User-Password}"
+    },
+    "MSSQL": {
+      "displayName": "MSSQL",
+      "connectorClassName": "MSSQLConnector",
+      "connectorClass": "MSSQLConnector",
+      "url": "${MSSQL-Conn-URL}",
+      "proxyUser": "${MSSQL-Conn-Proxy-User}",
+      "proxyPwd": "${MSSQL-Conn-Proxy-User-Password}"
+    }
+  },
+  "tests": {
+    "aa94e97a-dd59-b279-02e3-80a41f43e42e": {
+      "displayName": "Test Suite Setup",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {},
+      "type": "groupHeader"
+    },
+    "83008e7c-4552-5c6f-24c4-7da66b71331f": {
+      "displayName": "Create User Table",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "8ee1f8be-fcf2-206a-2f23-dbf58e3d08b9": {
+          "category": "PRETEST",
+          "connectorInstanceId": "MSSQL",
+          "expanded": true,
+          "enabled": true,
+          "actionMethod": "executeSQL",
+          "sqlStatement": "CREATE TABLE [dbo].[users](\n\t[pk_empid] [nvarchar](50) NOT NULL,\n\t[first_name] [nvarchar](50) NULL,\n\t[last_name] [nvarchar](50) NULL,\n\t[telephone_number] [nvarchar](50) NULL,\n\t[employee_id] [nvarchar](50) NULL,\n CONSTRAINT [PK_users] PRIMARY KEY CLUSTERED \n(\n\t[pk_empid] ASC\n)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]\n) ON [PRIMARY]\n"
+        }
+      },
+      "type": "test"
+    },
+    "c4bef5e2-7e8e-0997-918d-cc3fc6e6022e": {
+      "displayName": "Subscriber Tests",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {},
+      "groupHeaderCollapsed": false,
+      "type": "groupHeader"
+    },
+    "266b816c-c498-8bd4-0096-1776f1036943": {
+      "displayName": "Create User in IDV Check in MSSQL",
+      "description": "You can check if the user exists by getting any result, by getting a row back, or by checking a variable.",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "3139d612-f546-c2f8-da0a-a1ef2aae1751": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "description": "Set TestObjectName",
+          "attributesValues": {
+            "TestObjectName": [
+              "TestUser1"
+            ]
+          },
+          "attributesValuesHide": false
+        },
+        "55313874-e0f1-d0fe-5c41-474945ba15e2": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup"
+        },
+        "7caa2750-3504-3114-dd24-28768156271a": {
+          "category": "TEST",
+          "connectorInstanceId": "b913be55-ae8a-3451-5186-9490c38b0fca",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "createObject",
+          "targetFdn": "cn=${TestObjectName},${IDV-User-Container}",
+          "values": [
+            "user"
+          ],
+          "attributesValues": {
+            "givenName": [
+              "firstname1"
+            ],
+            "sn": [
+              "lastname1"
+            ],
+            "userPassword": [
+              "N0v3ll"
+            ],
+            "employeeNumber": [
+              "899"
+            ]
+          },
+          "valuesHide": false,
+          "attributesValuesHide": false
+        },
+        "302c763c-8d88-7346-c4dd-880538b9afd2": {
+          "category": "TEST",
+          "connectorInstanceId": "MSSQL",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertResultExists",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "sqlStatement": "SELECT * FROM ${MSSQL-User-Table} WHERE employee_id= '899'",
+          "description": "Option1: Assert Result Exists in MSSQL",
+          "notResult": "false"
+        },
+        "c300a7ee-d74a-58da-1a83-fe8b626990eb": {
+          "category": "TEST",
+          "connectorInstanceId": "MSSQL",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertRowCount",
+          "sqlStatement": "SELECT * FROM ${MSSQL-User-Table} WHERE employee_id= '899'",
+          "expectedRowCount": "1",
+          "description": "Option2: Assert Row Count in MSSQL",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000"
+        },
+        "8c5272ed-1258-ce57-c1f0-d76559382cab": {
+          "category": "TEST",
+          "connectorInstanceId": "MSSQL",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "getJdbcValue",
+          "sqlStatement": "SELECT last_name FROM ${MSSQL-User-Table} WHERE employee_id= '899'",
+          "variable": "MSSQL-User-Last-Name",
+          "description": "Option3: Get Column Value and Set Variable in MSSQL"
+        },
+        "fbf6d147-3f2d-5365-6215-d2d6967d569d": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertVariables",
+          "description": "Option3: Assert Variable Contains",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "attributesValues": {},
+          "attributesValuesHide": false
+        },
+        "09816647-5f1f-7575-9071-16deaf214c78": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "bfa3f876-3b6c-54c3-ce23-3c5b09d027fb",
+          "description": "Run Template - Clean up data"
+        }
+      },
+      "type": "test"
+    },
+    "f7284fc2-c4ee-a70f-bc81-26ca8ff5d186": {
+      "displayName": "Modify User in IDV Check in MSSQL",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "b05cf8ca-5350-f0d2-fd27-b302bc8176ad": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "description": "Set TestObjectName",
+          "attributesValues": {
+            "TestObjectName": [
+              "TestUser1"
+            ]
+          },
+          "attributesValuesHide": false
+        },
+        "63276f99-c43c-929b-9356-b702ef88bd8d": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup"
+        },
+        "8f43bfbc-7468-4d8c-1c4c-517373f990a9": {
+          "category": "PRETEST",
+          "connectorInstanceId": "b913be55-ae8a-3451-5186-9490c38b0fca",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "createObject",
+          "targetFdn": "cn=${TestObjectName},${IDV-User-Container}",
+          "values": [
+            "user"
+          ],
+          "attributesValues": {
+            "givenName": [
+              "firstname1"
+            ],
+            "sn": [
+              "lastname1"
+            ],
+            "userPassword": [
+              "N0v3ll"
+            ],
+            "employeeNumber": [
+              "899"
+            ]
+          },
+          "description": "Create Object in IDV",
+          "valuesHide": false,
+          "attributesValuesHide": false
+        },
+        "bd229a9d-f6ff-c3b7-1e79-0933ce129db5": {
+          "category": "PRETEST",
+          "connectorInstanceId": "MSSQL",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertResultExists",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "sqlStatement": "SELECT * FROM ${MSSQL-User-Table} WHERE employee_id= '899'",
+          "description": "Assert Result Exists in MSSQL",
+          "notResult": "false"
+        },
+        "a7057797-d055-6034-cd61-6517b969cf8a": {
+          "category": "TEST",
+          "connectorInstanceId": "b913be55-ae8a-3451-5186-9490c38b0fca",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "addAttributesValues",
+          "targetFdn": "cn=${TestObjectName},${IDV-User-Container}",
+          "attributesValues": {
+            "telephoneNumber": [
+              "555-555-5555"
+            ]
+          },
+          "attributesValuesHide": false
+        },
+        "cdd95630-0f2e-ffa8-e333-4487810f29f2": {
+          "category": "TEST",
+          "connectorInstanceId": "MSSQL",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertResultExists",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "sqlStatement": "SELECT * FROM ${MSSQL-User-Table} WHERE telephone_number= '555-555-5555' AND employee_id='899'",
+          "notResult": "false"
+        },
+        "01ccb0b1-528c-f0c4-22ed-1213ffc6100c": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "bfa3f876-3b6c-54c3-ce23-3c5b09d027fb",
+          "description": "Run Template - Clean up data"
+        }
+      },
+      "type": "test"
+    },
+    "453985fe-f130-2332-9400-8e8647dca1ba": {
+      "displayName": "Check User Login in MSSQL",
+      "description": "",
+      "actions": {
+        "1d0fba10-9c5f-0856-c7be-ef009ab3272a": {
+          "category": "TEST",
+          "actionMethod": "assertUserLogin",
+          "connectorInstanceId": "MSSQL",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "username": "idmproxy",
+          "password": "n0v3ll123",
+          "expanded": false,
+          "enabled": true,
+          "notResult": "false"
+        },
+        "453985fe-f130-2332-9400-8e8647dca1bb": {
+          "category": "TEST",
+          "actionMethod": "assertUserLogin",
+          "connectorInstanceId": "MSSQL",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "username": "idmproxy",
+          "password": "n0v3ll",
+          "expanded": false,
+          "enabled": true,
+          "notResult": "true"
+        }
+      },
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "templateTest": false,
+      "type": "test"
+    },
+    "4f431bbf-dc35-330a-95e6-7a5f86c8f13a": {
+      "displayName": "Publisher Tests",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {},
+      "type": "groupHeader"
+    },
+    "4449df06-c654-7321-fc48-65642e4738bc": {
+      "displayName": "Create User in MSSQL Check in IDV",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "2be72730-02b4-6c20-367e-fbe35c87f14e": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "description": "Set TestObjectName",
+          "attributesValues": {
+            "TestObjectName": [
+              "flast_name8"
+            ]
+          },
+          "attributesValuesHide": false
+        },
+        "06cf4139-8bfd-ed87-5be7-7de812813820": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup"
+        },
+        "ce5d61b9-e798-f16a-88c5-21f0674f5da7": {
+          "category": "TEST",
+          "connectorInstanceId": "MSSQL",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "executeSQL",
+          "sqlStatement": "INSERT INTO ${MSSQL-User-Table} ([pk_empid],[first_name],[last_name],[employee_id]) VALUES ('899','first_name8', 'last_name8','899');",
+          "description": "Add User in MSSQL"
+        },
+        "9c664ad3-03b1-10a4-ff7c-b3db70638e05": {
+          "category": "TEST",
+          "connectorInstanceId": "MSSQL",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertResultExists",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "notResult": "false",
+          "sqlStatement": "SELECT * FROM ${MSSQL-User-Table} WHERE employee_id='899'"
+        },
+        "c927b805-37ee-9e75-7e96-254241c21fb5": {
+          "category": "TEST",
+          "connectorInstanceId": "b913be55-ae8a-3451-5186-9490c38b0fca",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertObjectExists",
+          "assertRetryCount": "15",
+          "assertRetryInterval": "1000",
+          "targetFdn": "cn=${TestObjectName},${IDV-User-Container}",
+          "description": "Assert Object Exists in IDV",
+          "notResult": "false"
+        },
+        "96ca2f2e-0340-f27b-d3be-3259327f7a6c": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "bfa3f876-3b6c-54c3-ce23-3c5b09d027fb",
+          "description": "Run Template - Cleanup Data"
+        }
+      },
+      "type": "test"
+    },
+    "3a99cab8-d9ad-1a2e-ad2d-517748e4eaa9": {
+      "displayName": "Modify User in MSSQL Check in IDV",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "ca0b0ecc-5b3e-2cb6-134e-abd1ff1dbbba": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "setVariables",
+          "description": "Set TestObjectName",
+          "attributesValues": {
+            "TestObjectName": [
+              "flast_name9"
+            ]
+          },
+          "attributesValuesHide": false
+        },
+        "b7be3b33-4e17-ca7a-a6a6-e5d9a39e310f": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup"
+        },
+        "8cd34328-7332-3aeb-e206-7b42750a8c0d": {
+          "category": "PRETEST",
+          "connectorInstanceId": "MSSQL",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "executeSQL",
+          "sqlStatement": "INSERT INTO ${MSSQL-User-Table} ([pk_empid],[first_name],[last_name],[employee_id]) VALUES ('899','first_name9', 'last_name9','899');",
+          "description": "Add User in MSSQL"
+        },
+        "d1e573da-1096-8ebf-0ec1-324833553401": {
+          "category": "PRETEST",
+          "connectorInstanceId": "b913be55-ae8a-3451-5186-9490c38b0fca",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertObjectExists",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "targetFdn": "cn=${TestObjectName},${IDV-User-Container}",
+          "description": "Assert Object Exists in IDV",
+          "notResult": "false"
+        },
+        "8f35a29b-d559-1a5e-982e-54b362604f3a": {
+          "category": "TEST",
+          "connectorInstanceId": "MSSQL",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "executeSQL",
+          "sqlStatement": "UPDATE ${MSSQL-User-Table} SET [telephone_number] = '444-444-4444' WHERE employee_id='899';",
+          "description": "Update telephone_number on User in MSSQL"
+        },
+        "4629ff51-5979-7dab-e281-2995e9831722": {
+          "category": "TEST",
+          "connectorInstanceId": "b913be55-ae8a-3451-5186-9490c38b0fca",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertAttributesValues",
+          "assertRetryCount": "15",
+          "assertRetryInterval": "1000",
+          "targetFdn": "cn=${TestObjectName},${IDV-User-Container}",
+          "attributesValues": {
+            "telephoneNumber": [
+              "444-444-4444"
+            ]
+          },
+          "description": "Assert telephoneNumber Equals in IDV",
+          "compOper": "equals",
+          "compMode": "case ignore",
+          "attributesValuesHide": false
+        },
+        "119c5d54-16f0-94cd-0465-aa56b629aa7a": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runTemplate",
+          "testId": "bfa3f876-3b6c-54c3-ce23-3c5b09d027fb",
+          "description": "Run Template - Cleanup Data"
+        }
+      },
+      "type": "test"
+    },
+    "5259e4c5-8116-381d-ecef-5e140c0e7038": {
+      "displayName": "Misc Examples",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {},
+      "type": "groupHeader"
+    },
+    "453985fe-f130-2332-9400-8e8647dca1be": {
+      "displayName": "assertRowCount - zero expected",
+      "description": "assertRowCount 0 expected",
+      "enabled": "TRUE",
+      "actions": {
+        "1d0fba10-9c5f-0856-c7be-ef009ab3272e": {
+          "category": "TEST",
+          "actionMethod": "assertRowCount",
+          "connectorInstanceId": "MSSQL",
+          "sqlStatement": "select * from ${MSSQL-User-Table} where first_name='NOTEXIST'",
+          "expectedRowCount": "1",
+          "expanded": false,
+          "enabled": true,
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000"
+        }
+      },
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "templateTest": false,
+      "type": "test"
+    },
+    "453985fe-f130-2332-9400-8e8647dca1bf": {
+      "displayName": "assertRowCount - two expected",
+      "description": "assertRowCount 2 expected",
+      "enabled": "TRUE",
+      "actions": {
+        "1d0fba10-9c5f-0856-c7be-ef009ab3272f": {
+          "category": "TEST",
+          "actionMethod": "assertRowCount",
+          "connectorInstanceId": "MSSQL",
+          "sqlStatement": "select * from ${MSSQL-User-Table} where last_name = 'lastname1' or last_name='lastname2'",
+          "expectedRowCount": 2,
+          "expanded": false,
+          "enabled": true,
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000"
+        }
+      },
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "templateTest": false,
+      "type": "test"
+    },
+    "019b23fd-ba84-bb8b-85de-9e5ab6cbdeb0": {
+      "displayName": "assertUserLoginValid",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "3e8fc179-4ce2-35f8-13e1-d9dedc06413f": {
+          "category": "TEST",
+          "connectorInstanceId": "MSSQL",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertUserLogin",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "username": "idmproxy",
+          "password": "n0v3ll",
+          "notResult": "false"
+        }
+      },
+      "type": "test"
+    },
+    "89d8c50d-343f-0f25-55d0-6ff6ca08b675": {
+      "displayName": "assertUserLoginNotValid",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "c8ae4585-5946-9899-bd5f-a96663e7e124": {
+          "category": "TEST",
+          "connectorInstanceId": "MSSQL",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertUserLogin",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "username": "idmproxy",
+          "password": "n0v3ll123",
+          "notResult": "true"
+        }
+      },
+      "type": "test"
+    },
+    "bfa3f876-3b6c-54c3-ce23-3c5b09d027fb": {
+      "displayName": "Cleanup Data",
+      "description": "Uses variable TestObjectName -- Assumes employee_id=899",
+      "templateTest": true,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "d28d1195-85f3-0540-e65a-981d89d5a15f": {
+          "category": "TEST",
+          "connectorInstanceId": "b913be55-ae8a-3451-5186-9490c38b0fca",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "deleteObjects",
+          "values": [
+            "cn=${TestObjectName},${IDV-User-Container}"
+          ],
+          "description": "Delete Objects in IDV",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "valuesHide": false
+        },
+        "76bddf9b-9744-d4bc-fa65-6fece44bb904": {
+          "category": "TEST",
+          "connectorInstanceId": "b913be55-ae8a-3451-5186-9490c38b0fca",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertObjectExists",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "targetFdn": "cn=${TestObjectName},${IDV-User-Container}",
+          "description": "Assert Object Not Exists in IDV",
+          "notResult": "true"
+        },
+        "d686047a-8371-61c9-1e87-22e9be84fe52": {
+          "category": "TEST",
+          "connectorInstanceId": "MSSQL",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "executeSQL",
+          "sqlStatement": "DELETE FROM ${MSSQL-User-Table} WHERE employee_id= '899'",
+          "description": "Delete User from MSSQL"
+        },
+        "e7a5ecdd-74b0-84ca-6ae6-f75c8ef04f2d": {
+          "category": "TEST",
+          "connectorInstanceId": "MSSQL",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertResultExists",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "sqlStatement": "SELECT * FROM  ${MSSQL-User-Table} WHERE employee_id= '899'",
+          "description": "Assert Result Not Exists in MSSQL",
+          "notResult": "true"
+        }
+      },
+      "type": "action"
+    },
+    "793c8fd6-734e-0716-2f2d-954928588ee2": {
+      "displayName": "Test Suite Cleanup",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {},
+      "type": "groupHeader"
+    },
+    "3c358415-8f96-daca-664c-f8d95f620c92": {
+      "displayName": "Delete User Table",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "6cfa32e1-80a9-8c9d-7cdb-aec932b704b8": {
+          "category": "PRETEST",
+          "connectorInstanceId": "MSSQL",
+          "expanded": true,
+          "enabled": true,
+          "actionMethod": "executeSQL",
+          "sqlStatement": "DROP TABLE ${MSSQL-User-Table}"
+        }
+      },
+      "type": "test"
+    }
+  },
+  "scriptVersion": "11",
+  "variableData": {
+    "variableGroupActive": "DEV",
+    "variableGroups": [
+      "DEV",
+      "QA"
+    ],
+    "variableNames": [
+      "IDV-Connection-Host",
+      "IDV-Connection-Proxy-User",
+      "IDV-Connection-Proxy-User-Password",
+      "IDV-Connection-Proxy-User-Port",
+      "IDV-User-Container",
+      "MSSQL-Connection-Proxy-User",
+      "MSSQL-Connection-Proxy-User-Password",
+      "MSSQL-Connection-URL",
+      "MSSQL-User-Last-Name",
+      "MSSQL-User-Table",
+      "TestObjectName"
+    ],
+    "variableValues": [
+      [
+        "172.17.2.90",
+        "cn=admin,ou=sa,o=system",
+        "b64~v8F4GGgwbaAJSoRpzoXsRw==",
+        "637",
+        "ou=users,o=data",
+        "idmproxy",
+        "b64~tkd0AwXwo7FfBRVHaoqbwg==",
+        "jdbc:jtds:sqlserver://172.17.2.90:1433/idm",
+        "lastname1",
+        "dbo.users",
+        "flast_name8"
+      ],
+      [
+        "172.17.2.90",
+        "cn=admin,ou=sa,o=system",
+        "b64~v8F4GGgwbaAJSoRpzoXsRw==",
+        "637",
+        "ou=users,o=data",
+        "idmproxy",
+        "b64~MOV9peP8TsyO7EXniI1Ypw==",
+        "jdbc:jtds:sqlserver://172.17.2.90:1433/idm",
+        "lastname1",
+        "dbo.users",
+        ""
+      ]
+    ]
+  }
+}

@@ -1,0 +1,410 @@
+{
+  "displayName": "Remote Connector Tests",
+  "connectorConfigs": {
+    "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e": {
+      "displayName": "Generic Actions",
+      "connectorClassName": "GenericActions",
+      "connectorClass": "GenericActions"
+    },
+    "e0659924-8261-c082-b70b-bf9943ccab23": {
+      "displayName": "Remote Connector",
+      "connectorClassName": "RemoteConnector",
+      "connectorClass": "RemoteConnector",
+      "host": "${Remote Connector-Conn-Host}",
+      "port": "${Remote Connector-Conn-Port}",
+      "proxyUser": "${Remote Connector-Conn-ProxyUser}",
+      "proxyPwd": "${Remote Connector-Conn-ProxyPwd}"
+    },
+    "dacc823c-9380-2664-ad37-0b6f58c4f98a": {
+      "displayName": "Text File Connector",
+      "connectorClassName": "TextFileConnector",
+      "connectorClass": "TextFileConnector",
+      "filePath": "${sourcePath}",
+      "fileName": "${sourceFileName}",
+      "fileNamePattern": ""
+    }
+  },
+  "tests": {
+    "4566533b-31dd-94c3-6944-ab9cbcdef971": {
+      "displayName": "Get",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "4107ceaf-d55a-d987-1a4c-a7fad3916105": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup",
+          "exec": false
+        },
+        "98661f39-04e4-0cee-8bb4-f096e6b17d06": {
+          "category": "PRETEST",
+          "connectorInstanceId": "dacc823c-9380-2664-ad37-0b6f58c4f98a",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "writeToFile",
+          "data": "ooga booga",
+          "description": "Write To File",
+          "exec": false
+        },
+        "248c6e32-a981-a073-ab30-8a5ba89b1584": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0659924-8261-c082-b70b-bf9943ccab23",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "sendFile",
+          "sourceFilePath": "${sourcePath}/${sourceFileName}",
+          "destinationFilePath": "${destinationPath}/${destinationFileName}",
+          "exec": false,
+          "description": "Send File to remote system"
+        },
+        "6eaeae59-0bf8-c067-bfb1-cb6c9a00158f": {
+          "category": "PRETEST",
+          "connectorInstanceId": "dacc823c-9380-2664-ad37-0b6f58c4f98a",
+          "expanded": false,
+          "enabled": true,
+          "sourceFilePath": "${sourcePath}/${sourceFileName}",
+          "destinationFilePath": "${destinationPath}/${destinationFileName}",
+          "exec": false,
+          "description": "Cleanup original file",
+          "actionMethod": "deleteFile"
+        },
+        "19d1b2cb-9343-718d-db76-9647759a1798": {
+          "category": "TEST",
+          "connectorInstanceId": "e0659924-8261-c082-b70b-bf9943ccab23",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "getFile",
+          "sourceFilePath": "${destinationPath}/${destinationFileName}",
+          "destinationFilePath": "${sourcePath}/${sourceFileName}",
+          "exec": false,
+          "description": "Get File from remote system"
+        },
+        "3d9f1bba-2210-e8c0-57c9-0095b27d0b32": {
+          "category": "TEST",
+          "connectorInstanceId": "dacc823c-9380-2664-ad37-0b6f58c4f98a",
+          "expanded": false,
+          "enabled": true,
+          "assertRetryCount": "0",
+          "assertRetryInterval": "1000",
+          "notResult": "false",
+          "exec": false,
+          "actionMethod": "assertFileContains",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "data": "ooga booga"
+        },
+        "5dcd8668-6b8c-45ef-6770-0d521f1eb4fd": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "dacc823c-9380-2664-ad37-0b6f58c4f98a",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "deleteFile",
+          "variable": "",
+          "exec": false,
+          "description": "Cleanup local file"
+        },
+        "daa074d8-dc2a-59cf-2920-23b2d376b80d": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "e0659924-8261-c082-b70b-bf9943ccab23",
+          "expanded": false,
+          "enabled": true,
+          "description": "Cleanup remote file",
+          "exec": false,
+          "actionMethod": "assertCommandResults",
+          "command": "rm ${destinationPath}/${destinationFileName}",
+          "useSudo": false,
+          "assertRetryCount": "0",
+          "assertRetryInterval": "1000",
+          "compOper": "valued",
+          "compMode": "case ignore",
+          "expectedResults": "0"
+        }
+      },
+      "actionSorting": true,
+      "execActions": false,
+      "type": "test"
+    },
+    "260c944a-c47d-9a6a-23a1-7dc43e039309": {
+      "displayName": "Send",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "1d309011-15e3-a500-88c6-532583e32952": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup",
+          "exec": false
+        },
+        "45f8b683-6764-fa20-c4df-d7a3a808d414": {
+          "category": "PRETEST",
+          "connectorInstanceId": "dacc823c-9380-2664-ad37-0b6f58c4f98a",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "writeToFile",
+          "data": "ooga booga",
+          "description": "Write To File",
+          "exec": false
+        },
+        "ac009870-19d0-beea-efa1-f8a314413922": {
+          "category": "TEST",
+          "connectorInstanceId": "e0659924-8261-c082-b70b-bf9943ccab23",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "sendFile",
+          "sourceFilePath": "${sourcePath}/${sourceFileName}",
+          "destinationFilePath": "${destinationPath}/${destinationFileName}",
+          "exec": false,
+          "description": "Send File to remote system"
+        },
+        "aab60fb2-c405-968b-3e61-e383332ff430": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "dacc823c-9380-2664-ad37-0b6f58c4f98a",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "deleteFile",
+          "variable": "",
+          "exec": false,
+          "description": "Cleanup File"
+        }
+      },
+      "actionSorting": true,
+      "execActions": false,
+      "type": "test"
+    },
+    "0b23d747-9e49-32bd-533d-c9a6340d8967": {
+      "displayName": "Send Sftp",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "e26c89e5-8c21-0608-8a3b-1e42a8a87520": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup",
+          "exec": false
+        },
+        "dfc0e8ad-369b-5367-8198-095e31b04c7e": {
+          "category": "PRETEST",
+          "connectorInstanceId": "dacc823c-9380-2664-ad37-0b6f58c4f98a",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "writeToFile",
+          "data": "ooga booga",
+          "description": "Write To File",
+          "exec": false
+        },
+        "6decdc30-5148-8938-d1e2-16e9dea9c437": {
+          "category": "TEST",
+          "connectorInstanceId": "e0659924-8261-c082-b70b-bf9943ccab23",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "sendFileViaSftp",
+          "sourceFilePath": "${sourcePath}/${sourceFileName}",
+          "destinationFilePath": "${destinationPath}/${destinationFileName}",
+          "exec": false,
+          "description": "Send file to remote system via SFTP",
+          "overwrite": true
+        },
+        "5914987a-8062-8e53-8d1b-99af731c42ec": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "dacc823c-9380-2664-ad37-0b6f58c4f98a",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "deleteFile",
+          "variable": "",
+          "exec": false,
+          "description": "Cleanup local file"
+        },
+        "2cb95d2e-e7ae-0815-3885-5f66fe4bc4a5": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "e0659924-8261-c082-b70b-bf9943ccab23",
+          "expanded": false,
+          "enabled": true,
+          "description": "Cleanup remote file",
+          "exec": false,
+          "actionMethod": "assertCommandResults",
+          "command": "rm ${destinationPath}/${destinationFileName}",
+          "useSudo": false,
+          "assertRetryCount": "0",
+          "assertRetryInterval": "1000",
+          "compOper": "valued",
+          "compMode": "case ignore",
+          "expectedResults": "0"
+        }
+      },
+      "actionSorting": true,
+      "execActions": false,
+      "type": "test"
+    },
+    "4f035680-1551-027e-654e-8401182c8785": {
+      "displayName": "Execute",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "78251694-f43e-ddb7-e7ab-a4aef9b39ce1": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup",
+          "exec": false
+        },
+        "7c85a33c-ff57-c2c7-71c0-3e263adc7ede": {
+          "category": "PRETEST",
+          "connectorInstanceId": "dacc823c-9380-2664-ad37-0b6f58c4f98a",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "writeToFile",
+          "data": "ooga booga",
+          "description": "Create local file",
+          "exec": false
+        },
+        "aa32a162-e449-a537-826f-e322edcb65e4": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0659924-8261-c082-b70b-bf9943ccab23",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "sendFile",
+          "sourceFilePath": "${sourcePath}/${sourceFileName}",
+          "destinationFilePath": "${destinationPath}/${sourceFileName}",
+          "exec": false,
+          "description": "Send local file to remote system"
+        },
+        "396b77fa-a931-aae8-d350-b2fd3594cd81": {
+          "category": "PRETEST",
+          "connectorInstanceId": "dacc823c-9380-2664-ad37-0b6f58c4f98a",
+          "expanded": false,
+          "enabled": true,
+          "sourceFilePath": "${sourcePath}/${sourceFileName}",
+          "destinationFilePath": "${destinationPath}/${destinationFileName}",
+          "exec": false,
+          "description": "Cleanup local file",
+          "actionMethod": "deleteFile"
+        },
+        "bc91f3d5-63a0-ff87-6282-c3bc802a1417": {
+          "category": "TEST",
+          "connectorInstanceId": "e0659924-8261-c082-b70b-bf9943ccab23",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertCommandResults",
+          "assertRetryCount": "0",
+          "assertRetryInterval": "1000",
+          "command": "mv ${destinationPath}/${sourceFileName} ${destinationPath}/${destinationFileName}",
+          "useSudo": false,
+          "compOper": "equals",
+          "compMode": "case ignore",
+          "expectedResults": "0",
+          "exec": false,
+          "description": "Rename remote file"
+        },
+        "a2a7e49e-787e-1108-5554-4bdb07d1a4f7": {
+          "category": "TEST",
+          "connectorInstanceId": "e0659924-8261-c082-b70b-bf9943ccab23",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "getFile",
+          "sourceFilePath": "${destinationPath}/${destinationFileName}",
+          "destinationFilePath": "${sourcePath}/${sourceFileName}",
+          "exec": false,
+          "description": "Get File from remote system"
+        },
+        "13006bd0-53b6-ead9-1fbc-76bc539d23e4": {
+          "category": "TEST",
+          "connectorInstanceId": "dacc823c-9380-2664-ad37-0b6f58c4f98a",
+          "expanded": false,
+          "enabled": true,
+          "assertRetryCount": "0",
+          "assertRetryInterval": "1000",
+          "notResult": "false",
+          "exec": false,
+          "actionMethod": "assertFileContains",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "data": "ooga booga",
+          "description": "Assert local file contains same text as it was created with"
+        },
+        "d931c2e8-b66a-2d40-7a34-77cd6655e69d": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "dacc823c-9380-2664-ad37-0b6f58c4f98a",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "deleteFile",
+          "variable": "",
+          "exec": false,
+          "description": "Cleanup local file"
+        },
+        "1621ccd7-847c-7ebd-6579-272ad1ee219a": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "e0659924-8261-c082-b70b-bf9943ccab23",
+          "expanded": false,
+          "enabled": true,
+          "description": "Cleanup remote file",
+          "exec": false,
+          "actionMethod": "assertCommandResults",
+          "command": "rm ${destinationPath}/${destinationFileName}",
+          "useSudo": false,
+          "assertRetryCount": "0",
+          "assertRetryInterval": "1000",
+          "compOper": "valued",
+          "compMode": "case ignore",
+          "expectedResults": "0"
+        }
+      },
+      "actionSorting": true,
+      "execActions": false,
+      "type": "test"
+    }
+  },
+  "reports": {},
+  "jsLibrary": "function getGreeting() {\n    return \"Hello World\";\n}",
+  "scriptVersion": "11",
+  "variableData": {
+    "variableGroupActive": "DEV",
+    "variableGroups": [
+      "DEV"
+    ],
+    "variableNames": [
+      "destinationFileName",
+      "destinationPath",
+      "sourceFileName",
+      "sourcePath",
+      "Remote Connector-Conn-Host",
+      "Remote Connector-Conn-Port",
+      "Remote Connector-Conn-ProxyUser",
+      "Remote Connector-Conn-ProxyPwd"
+    ],
+    "variableValues": [
+      [
+        "remote.csv",
+        "/tmp",
+        "local.csv",
+        ".",
+        "11.11.11.11",
+        "22",
+        "proxyuser",
+        "proxypwd"
+      ]
+    ]
+  }
+}

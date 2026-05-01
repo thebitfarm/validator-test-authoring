@@ -1,0 +1,620 @@
+{
+  "displayName": "Starter Text File Connector",
+  "connectorConfigs": {
+    "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e": {
+      "displayName": "Generic Actions",
+      "connectorClassName": "GenericActions",
+      "connectorClass": "GenericActions"
+    },
+    "cb4e66a0-25aa-b2dc-b9a8-605c942e9319": {
+      "displayName": "Testfile",
+      "connectorClassName": "TextFileConnector",
+      "connectorClass": "TextFileConnector",
+      "filePath": "${FilePath}",
+      "fileName": "testfile.txt",
+      "fileNamePattern": ""
+    },
+    "9f0e6f91-3900-029e-7771-5090b24547b3": {
+      "displayName": "Testfile2",
+      "connectorClassName": "TextFileConnector",
+      "connectorClass": "TextFileConnector",
+      "filePath": "${FilePath}",
+      "fileName": "testfile2.txt",
+      "fileNamePattern": ""
+    },
+    "3d09c021-e836-7c84-b5b4-434049f6f6ce": {
+      "displayName": "TestFilePattern",
+      "connectorClassName": "TextFileConnector",
+      "connectorClass": "TextFileConnector",
+      "filePath": "${FilePath}",
+      "fileName": "",
+      "fileNamePattern": "test.*"
+    },
+    "be681c41-7d2d-a71e-89be-3f1a2c9a2599": {
+      "displayName": "All files",
+      "connectorClassName": "TextFileConnector",
+      "connectorClass": "TextFileConnector",
+      "filePath": "${FilePath}",
+      "fileName": "",
+      "fileNamePattern": ".*\\.txt"
+    }
+  },
+  "tests": {
+    "ce00bda8-1482-1476-fcc0-6e71da6b1f70": {
+      "displayName": "File exists",
+      "description": "",
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "37d991ba-e527-0c27-bbe5-213822828625": {
+          "category": "PRETEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "deleteFile",
+          "enabled": true
+        },
+        "55ff8a0e-9d7c-6a95-b961-c8187314c592": {
+          "category": "PRETEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "writeToFile",
+          "enabled": true,
+          "data": "This is a test file for Novell Identity Manager Validator"
+        },
+        "8118b6e6-e85e-98a3-ec85-3ba885f7f289": {
+          "category": "TEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "assertFileExists",
+          "enabled": true,
+          "assertRetryCount": "5",
+          "assertRetryInterval": "5000",
+          "notResult": "false"
+        },
+        "052306f4-e9a4-53e0-6cab-7f1f443761d2": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "deleteFile",
+          "enabled": true
+        }
+      },
+      "templateTest": false,
+      "type": "test"
+    },
+    "10620225-4839-b15a-47cd-75d311c97e23": {
+      "displayName": "File not exists",
+      "description": "",
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "c163b59e-f94a-0e2c-4b42-b2e366d567f6": {
+          "category": "PRETEST",
+          "connectorInstanceId": "9f0e6f91-3900-029e-7771-5090b24547b3",
+          "expanded": false,
+          "actionMethod": "deleteFile",
+          "enabled": true
+        },
+        "a32422e7-133d-be1b-13b6-36ddbdd26eb6": {
+          "category": "TEST",
+          "connectorInstanceId": "9f0e6f91-3900-029e-7771-5090b24547b3",
+          "expanded": false,
+          "actionMethod": "assertFileExists",
+          "enabled": true,
+          "assertRetryCount": "5",
+          "assertRetryInterval": "5000",
+          "notResult": "true"
+        }
+      },
+      "templateTest": false,
+      "type": "test"
+    },
+    "11cc7f8f-2f59-1ed6-d9b8-95c6bbce1237": {
+      "displayName": "File contains",
+      "description": "",
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "358da418-c514-445b-0f73-a85710c4df0f": {
+          "category": "PRETEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "deleteFile",
+          "enabled": true,
+          "description": "Delete File"
+        },
+        "fd579ee3-d882-6dc8-df52-0aa7d4731bfc": {
+          "category": "PRETEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "writeToFile",
+          "enabled": true,
+          "data": "This is a test file for Novell Identity Manager Validator",
+          "description": "Write To File"
+        },
+        "d121a59c-c611-c9e2-81e5-5694b6253c5e": {
+          "category": "TEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "assertFileContains",
+          "enabled": true,
+          "assertRetryCount": "5",
+          "assertRetryInterval": "5000",
+          "expectedResults": "Novell",
+          "data": "novell",
+          "compOper": "contains",
+          "compMode": "case ignore"
+        },
+        "33b0606a-3de4-c0c0-1004-649a23597c27": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "deleteFile",
+          "enabled": true
+        }
+      },
+      "templateTest": false,
+      "type": "test"
+    },
+    "3bd95778-3ef2-b2d9-b3bc-03f1c3c1b86d": {
+      "displayName": "File contains using RegEx",
+      "description": "",
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "bbd2c771-8832-34bb-2a8b-8133da27829d": {
+          "category": "PRETEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "deleteFile",
+          "enabled": true,
+          "description": "Delete File"
+        },
+        "eb496f6d-ca06-dfbc-3ed4-160ce1e76e3e": {
+          "category": "PRETEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "writeToFile",
+          "enabled": true,
+          "data": "This is a test file for Novell Identity Manager Validator",
+          "description": "Write To File"
+        },
+        "07a78081-35b9-5105-4446-c5e3430e7d33": {
+          "category": "TEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "assertFileContains",
+          "enabled": true,
+          "assertRetryCount": "5",
+          "assertRetryInterval": "5000",
+          "expectedResults": "Novell",
+          "data": ".*ovel.*",
+          "compOper": "contains",
+          "compMode": "regex"
+        },
+        "f3d70fb2-7cde-e403-b948-04cf9781f73a": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "deleteFile",
+          "enabled": true
+        }
+      },
+      "templateTest": false,
+      "type": "test"
+    },
+    "0afb4cc9-258c-013a-00c2-61f647bf82f2": {
+      "displayName": "File contains with file name pattern",
+      "description": "",
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "c8316695-5718-709e-3ba6-f938551c8210": {
+          "category": "PRETEST",
+          "connectorInstanceId": "9f0e6f91-3900-029e-7771-5090b24547b3",
+          "expanded": false,
+          "actionMethod": "deleteFile",
+          "enabled": true
+        },
+        "e76d9adf-a4a1-22e2-26c4-77b7c1ce10d2": {
+          "category": "PRETEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "deleteFile",
+          "enabled": true
+        },
+        "7b2208a5-dad1-a40c-f264-f6752c7b17fc": {
+          "category": "PRETEST",
+          "connectorInstanceId": "9f0e6f91-3900-029e-7771-5090b24547b3",
+          "expanded": false,
+          "actionMethod": "writeToFile",
+          "enabled": true,
+          "data": "This is file testfile2\nand it's a fun one too."
+        },
+        "2bb773a5-dd32-c822-d7f4-51f8a0e7fa47": {
+          "category": "PRETEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "writeToFile",
+          "enabled": true,
+          "data": "Novell Identity Manager Validator Test File"
+        },
+        "db9c5e37-7a07-f510-d278-c80029b6b8e2": {
+          "category": "TEST",
+          "connectorInstanceId": "3d09c021-e836-7c84-b5b4-434049f6f6ce",
+          "expanded": false,
+          "actionMethod": "assertFileContains",
+          "enabled": true,
+          "assertRetryCount": "5",
+          "assertRetryInterval": "5000",
+          "data": "testfile2",
+          "compOper": "contains",
+          "compMode": "case ignore"
+        },
+        "39907edb-bbaf-c64c-9023-05349bcccb25": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "9f0e6f91-3900-029e-7771-5090b24547b3",
+          "expanded": false,
+          "actionMethod": "deleteFile",
+          "enabled": true
+        },
+        "335f167f-55dc-c88f-caf4-8b4297dd8896": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "deleteFile",
+          "enabled": true
+        }
+      },
+      "templateTest": false,
+      "type": "test"
+    },
+    "93f15a36-963f-b1a8-d088-22ee079e61dc": {
+      "displayName": "File does not contain",
+      "description": "",
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "91e26201-2e5f-7790-1c57-8264881c4885": {
+          "category": "PRETEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "deleteFile",
+          "enabled": true,
+          "description": "Delete File"
+        },
+        "fbf72a20-7bc8-bf77-7d2a-2052a30f0fa3": {
+          "category": "PRETEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "writeToFile",
+          "enabled": true,
+          "data": "This is a test file for Novell Identity Manager Validator",
+          "description": "Write To File"
+        },
+        "55686a02-4934-fa99-04ef-143438c70798": {
+          "category": "TEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "assertFileContains",
+          "enabled": true,
+          "assertRetryCount": "5",
+          "assertRetryInterval": "5000",
+          "data": "ROCKY ROAD ICE CREAM",
+          "compOper": "not contains",
+          "compMode": "case ignore"
+        },
+        "ad5b4aeb-8690-ab52-894d-705962b8ae73": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "deleteFile",
+          "enabled": true
+        }
+      },
+      "templateTest": false,
+      "type": "test"
+    },
+    "1964a595-427a-e4e6-6deb-2f4b12947cf4": {
+      "displayName": "Default file name pattern",
+      "description": "",
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "d66f8ba7-58d6-ebda-b90f-90f27aef172a": {
+          "category": "PRETEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "writeToFile",
+          "enabled": true,
+          "data": "Novell"
+        },
+        "fc44e825-19e9-7eef-96fc-0588d7952ca1": {
+          "category": "PRETEST",
+          "connectorInstanceId": "9f0e6f91-3900-029e-7771-5090b24547b3",
+          "expanded": false,
+          "actionMethod": "writeToFile",
+          "enabled": true,
+          "data": "SuSE"
+        },
+        "1293fb2a-6fbc-8f3a-b70c-89160005aec7": {
+          "category": "TEST",
+          "connectorInstanceId": "be681c41-7d2d-a71e-89be-3f1a2c9a2599",
+          "expanded": false,
+          "actionMethod": "assertFileContains",
+          "enabled": true,
+          "assertRetryCount": "5",
+          "assertRetryInterval": "5000",
+          "data": "novell",
+          "compOper": "contains",
+          "compMode": "case ignore"
+        },
+        "90619622-9661-18b9-cb46-d5931f9eb445": {
+          "category": "TEST",
+          "connectorInstanceId": "be681c41-7d2d-a71e-89be-3f1a2c9a2599",
+          "expanded": false,
+          "actionMethod": "assertFileContains",
+          "enabled": true,
+          "assertRetryCount": "5",
+          "assertRetryInterval": "5000",
+          "data": "SuSE",
+          "compOper": "contains",
+          "compMode": "case ignore"
+        },
+        "c247a826-cfdf-70d1-0733-bb8294c8e229": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "be681c41-7d2d-a71e-89be-3f1a2c9a2599",
+          "expanded": false,
+          "actionMethod": "deleteFile",
+          "enabled": true
+        }
+      },
+      "templateTest": false,
+      "type": "test"
+    },
+    "d7d8f511-1a6b-e81d-2398-ca86eb594042": {
+      "displayName": "Get File and Set Variable",
+      "description": "",
+      "enabled": true,
+      "preTestExpanded": true,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "c3f8b553-881b-9e1b-350d-2e915bfab554": {
+          "category": "PRETEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "deleteFile",
+          "enabled": true,
+          "description": "Delete File"
+        },
+        "9a7b93e0-79b9-21cb-2b04-2a92d52e8cee": {
+          "category": "PRETEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "writeToFile",
+          "enabled": true,
+          "data": "This is a test file for Novell Identity Manager Validator",
+          "description": "Write To File"
+        },
+        "061b9b4e-7f58-5e1f-3e46-d5636b5992f1": {
+          "category": "TEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "assertFileContains",
+          "enabled": true,
+          "assertRetryCount": "5",
+          "assertRetryInterval": "5000",
+          "expectedResults": "Novell",
+          "data": "novell",
+          "compOper": "contains",
+          "compMode": "case ignore"
+        },
+        "242f303b-a866-2efa-9939-094b40b19a96": {
+          "category": "TEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "getFileContentsIntoVar",
+          "variable": "TestVar"
+        },
+        "45c9f0cc-44a1-87f6-9a07-1081900ddafe": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertVariables",
+          "compOper": "contains",
+          "compMode": "case ignore",
+          "attributesValues": {
+            "${TestVar}": [
+              "novell"
+            ]
+          },
+          "attributesValuesHide": false
+        },
+        "2d2f8636-2f13-de5a-c531-d200934efe7b": {
+          "category": "TEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "echo",
+          "message": "${TestVar}"
+        },
+        "04bb9b4b-cc87-2c17-1934-0502a4a9ee4b": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "actionMethod": "deleteFile",
+          "enabled": true
+        }
+      },
+      "templateTest": false,
+      "type": "test"
+    },
+    "2ade5a3b-6b29-0e67-0039-4806cc5aa656": {
+      "displayName": "Write Data to File",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": false,
+      "testExpanded": true,
+      "postTestExpanded": false,
+      "actions": {
+        "0c392954-b0dc-4b83-0cd3-7c2d39c7262f": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup"
+        },
+        "54fc08f4-bd15-e89d-829d-050da958f012": {
+          "category": "TEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "writeToFile",
+          "data": "TestWritingData"
+        },
+        "bd9e424b-f223-6d85-65e9-c199266400f8": {
+          "category": "TEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertFileContains",
+          "assertRetryCount": "30",
+          "assertRetryInterval": "2000",
+          "data": "TestWritingData",
+          "compOper": "contains",
+          "compMode": "case ignore"
+        },
+        "e5f01f55-94cf-b390-9137-34a09123c506": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": true,
+          "enabled": true,
+          "actionMethod": "deleteFile"
+        }
+      },
+      "type": "test"
+    },
+    "6676f79d-a837-3422-75ce-5e11309f3467": {
+      "displayName": "Write Data to All Files",
+      "description": "",
+      "templateTest": false,
+      "enabled": true,
+      "preTestExpanded": false,
+      "testExpanded": true,
+      "postTestExpanded": true,
+      "actions": {
+        "f1cc769f-7fe9-9e25-fc8c-bb9a7feebd0b": {
+          "category": "PRETEST",
+          "connectorInstanceId": "e0454dab-e6b3-5fb1-3e68-b242e5f6e48e",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "runCleanup"
+        },
+        "51bb1ec6-bba9-178c-d0b1-9a7f35f14308": {
+          "category": "TEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "writeToFile",
+          "data": "This is testFile1"
+        },
+        "fc168fcf-c4be-3b05-af5f-4a9c20c80a6e": {
+          "category": "TEST",
+          "connectorInstanceId": "9f0e6f91-3900-029e-7771-5090b24547b3",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "writeToFile",
+          "data": "This is testFile2"
+        },
+        "67be7661-8cd6-10b7-0816-4706b4ee8362": {
+          "category": "TEST",
+          "connectorInstanceId": "be681c41-7d2d-a71e-89be-3f1a2c9a2599",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "writeToFile",
+          "data": "Test String was written to AllFiles"
+        },
+        "882c806c-255f-821e-9b08-52f035b9327a": {
+          "category": "TEST",
+          "connectorInstanceId": "cb4e66a0-25aa-b2dc-b9a8-605c942e9319",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertFileContains",
+          "assertRetryCount": "2",
+          "assertRetryInterval": "2000",
+          "data": "This is testFile1",
+          "compOper": "contains",
+          "compMode": "case ignore"
+        },
+        "3ec601f6-9ea7-3c62-88ee-9ee3f90f4189": {
+          "category": "TEST",
+          "connectorInstanceId": "9f0e6f91-3900-029e-7771-5090b24547b3",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertFileContains",
+          "assertRetryCount": "2",
+          "assertRetryInterval": "2000",
+          "data": "This is testFile2",
+          "description": "Assert File Contains in Testfile2",
+          "compOper": "contains",
+          "compMode": "case ignore"
+        },
+        "bbf89286-45ac-97f5-d2e4-831a6e4b10e9": {
+          "category": "TEST",
+          "connectorInstanceId": "be681c41-7d2d-a71e-89be-3f1a2c9a2599",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "assertFileContains",
+          "assertRetryCount": "5",
+          "assertRetryInterval": "1000",
+          "data": "Test String was written to AllFiles",
+          "compOper": "contains",
+          "compMode": "case ignore"
+        },
+        "0c19dcd2-c1e1-a863-ece7-b4b8d8b44511": {
+          "category": "POSTTEST",
+          "connectorInstanceId": "be681c41-7d2d-a71e-89be-3f1a2c9a2599",
+          "expanded": false,
+          "enabled": true,
+          "actionMethod": "deleteFile"
+        }
+      },
+      "type": "test"
+    }
+  },
+  "scriptVersion": "11",
+  "variableData": {
+    "variableGroupActive": "default",
+    "variableGroups": [
+      "default"
+    ],
+    "variableNames": [
+      "FilePath",
+      "TestVar"
+    ],
+    "variableValues": [
+      [
+        "",
+        "This is a test file for Novell Identity Manager Validator\r\n"
+      ]
+    ]
+  }
+}
