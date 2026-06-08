@@ -1,6 +1,7 @@
 ---
 name: validator-test-authoring
 description: 'Create, review, or refactor NetIQ IDM Validator 2.0.1 JSON test suites and templates. Use when the user asks to generate Validator tests, add PRETEST/TEST/POSTTEST actions, validate connector/action JSON against Validator_Schema.json, build templateTests for setup/cleanup, add retry-aware assertions, model variableGroups/variableValues, or work with eDir/AD/LDAP/HTTP/JDBC/UserApp/SMTP/WSListener connectors. Triggers: "validator suite", "validator test", "testsuites/*.json", "actionMethod", "connectorInstanceId", "assertRetry", "runTemplate", "runCleanup", "WSListener", "IDM validator".'
+user-invocable: true
 ---
 
 # Validator Test Authoring
