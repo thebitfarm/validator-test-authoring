@@ -77,6 +77,22 @@
           "description": "Pre-clean any prior test user",
           "testId": "00000000-0000-0000-0000-0000tmpcleanup"
         },
+        "00000000-0000-0000-0000-pretestecho1": {
+          "category": "PRETEST",
+          "connectorInstanceId": "00000000-0000-0000-0000-00000000gen0",
+          "actionMethod": "echo",
+          "enabled": true,
+          "description": "Log the test user DN",
+          "message": "Running create/verify for ${Test-User-DN}"
+        },
+        "00000000-0000-0000-0000-pretestcmt01": {
+          "category": "PRETEST",
+          "connectorInstanceId": "00000000-0000-0000-0000-00000000gen0",
+          "actionMethod": "comment",
+          "enabled": true,
+          "description": "Document PRETEST intent",
+          "comment": "Generic utility actions are wired to the GenericActions connector instance."
+        },
         "00000000-0000-0000-0000-testcreate01": {
           "category": "TEST",
           "connectorInstanceId": "00000000-0000-0000-0000-00000000idv0",

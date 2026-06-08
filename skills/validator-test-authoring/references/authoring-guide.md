@@ -11,11 +11,11 @@ Detail backing the SKILL.md procedure. Use alongside `assets/source-files/Valida
   "variableData": {
     "variableGroupActive": "DEV",
     "variableGroups": ["DEV", "QA", "PROD"],
-    "variableNames": ["VarA", "VarB"],
+    "variableNames": ["VarA", "VarB", "VarC"],
     "variableValues": [
-      ["DEV-A", "DEV-B"],
-      ["QA-A",  "QA-B"],
-      ["PROD-A","PROD-B"]
+      ["DEV-A", "DEV-B", "DEV-C"],
+      ["QA-A",  "QA-B", "QA-C"],
+      ["PROD-A","PROD-B", "PROD-C"]
     ]
   },
   "connectorConfigs": { "<guid>": { "...": "..." } },
@@ -27,6 +27,8 @@ Rules:
 - `variableValues` rows align by index with `variableGroups`.
 - Each row's columns align by index with `variableNames`.
 - All three arrays must stay in lock-step length-wise.
+- Every suite must include a populated `GenericActions` connector entry in `connectorConfigs`.
+- Generic utility actions must use the `GenericActions` connector `connectorInstanceId` (for example `runTemplate`, `runCleanup`, `setVariables`, `calculateVariable`, `echo`; and `comment` when a `connectorInstanceId` field is used).
 
 ## Test Object
 
@@ -57,7 +59,7 @@ Required-ish fields on every action:
 The remaining fields are dictated by the action's `widgets` block in `Validator_Schema.json`. Do not invent fields.
 
 ## Variables
-
+- When generating variables for use in the top-level `variableData`, always generate 3 groups of "DEV", "QA", and "PROD". Make the "DEV" group the active group.
 - Reference variables anywhere as `${VarName}`.
 - Set new variables with `setVariables` (HashMap of `name -> [values]`).
 - Compute uniqueness with `calculateVariable` (e.g., increment a numeric suffix) or JS embedding (`"js:{ ... }"`).

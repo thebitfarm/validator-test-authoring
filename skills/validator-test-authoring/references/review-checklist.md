@@ -10,10 +10,12 @@ Run through this list before returning a suite to the user.
 - [ ] Each action has `category` ∈ {`PRETEST`, `TEST`, `POSTTEST`}.
 
 ## Connector & Action Integrity
+- [ ] `connectorConfigs` includes a populated `GenericActions` connector in every suite.
 - [ ] Every action's `connectorInstanceId` exists in `connectorConfigs`.
 - [ ] Every `actionMethod` exists in `assets/source-files/Validator_Schema.json` under the matching connector class.
 - [ ] All action fields map to widgets defined in the schema (no invented fields).
 - [ ] Action descriptions are human-meaningful (they appear in the result log).
+- [ ] Generic utility methods (`runTemplate`, `runCleanup`, `setVariables`, `calculateVariable`, `echo`, etc.) are wired to the `GenericActions` connector `connectorInstanceId`.
 
 ## Variables
 - [ ] `variableNames`, each `variableValues` row, and `variableGroups` lengths agree.

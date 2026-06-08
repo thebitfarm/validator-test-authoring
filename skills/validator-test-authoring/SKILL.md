@@ -26,6 +26,7 @@ Operationalizes the discovery in [NetIQ IDM Validator Discovery](./references/ne
    - Skim a comparable example in the bundled template samples before writing (see optional links below).
 
 2. **Plan the suite structure**
+   - Include a populated `GenericActions` connector in `connectorConfigs` for every suite.
    - Pick canonical phases per test:
      - PRETEST: `setVariables`, `calculateVariable`, `runCleanup`, `runTemplate` (setup).
      - TEST: action under test + retry-aware asserts + value capture (`getLdapAttributes`, `getJsonValue`, `getXPathValue`).
@@ -37,6 +38,7 @@ Operationalizes the discovery in [NetIQ IDM Validator Discovery](./references/ne
    - Use GUID-keyed objects for `tests` and `actions` (generate v4 GUIDs).
    - Set `category` to `PRETEST` | `TEST` | `POSTTEST` on every action.
    - Reference connectors by `connectorInstanceId` keys defined in `connectorConfigs`.
+   - Wire Generic utility methods to the `GenericActions` connector instance (for example `runTemplate`, `runCleanup`, `setVariables`, `calculateVariable`, `echo`; and `comment` when a `connectorInstanceId` is present).
    - Apply guidance in [references/authoring-guide.md](./references/authoring-guide.md) for variables, assertions, and naming.
 
 4. **Validate before returning**

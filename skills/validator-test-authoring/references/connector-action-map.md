@@ -4,6 +4,8 @@ Authoritative source: [Validator_Schema.json](../assets/source-files/Validator_S
 
 ## Connector Classes (`connectorClassName`)
 
+Rule: every suite must define a populated `GenericActions` connector in `connectorConfigs`, and Generic utility actions should target that connector's `connectorInstanceId`.
+
 | Class | Purpose |
 |---|---|
 | `GenericActions` | Variable, date, parsing, control-flow utilities (no remote system). |
@@ -27,6 +29,7 @@ Authoritative source: [Validator_Schema.json](../assets/source-files/Validator_S
 - Parsing: `getJsonValue`, `getXPathValue`.
 - Assertions: `assertVariables`, `assertJson`, `assertDates`.
 - Flow: `echo`, `comment`, `wait`, `pause`, `manualTest`, `runTemplate`, `runCleanup`.
+- Wiring guidance: bind `runTemplate`, `runCleanup`, `echo`, `wait`, `pause`, `manualTest`, and other Generic utility actions to the `GenericActions` connector instance. `comment` is metadata-only in schema but should still be treated as a Generic action.
 
 ## Directory Actions (eDir / AD / LDAP — same patterns, per-class fields)
 
