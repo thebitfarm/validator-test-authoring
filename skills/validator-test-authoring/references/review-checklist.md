@@ -36,6 +36,7 @@ Run through this list before returning a suite to the user.
 ## Security
 - [ ] No cleartext credentials in the suite — use variables or encrypted values (`b64~...`).
 - [ ] WS Listener basic-auth headers, if used, are fed from variables.
+- [ ] URL suffixes / path segments in `HTTPConnector` actions are percent-encoded (URI encoded) when they contain special characters or variable-sourced data. Dynamic values are pre-encoded via `js:{ encodeURIComponent(...) }` in a `setVariables` action before being interpolated into any URL field.
 
 ## Style
 - [ ] `displayName` values read like sentences ("Assert Object Exists in AD").

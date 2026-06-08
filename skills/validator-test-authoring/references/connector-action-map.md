@@ -42,6 +42,7 @@ Rule: every suite must define a populated `GenericActions` connector in `connect
 - `assertGetResults`, `assertPostResults` (also covers PUT/DELETE).
 - `getGetResultsIntoVar` to capture response into a variable.
 - Supports `headerData`, `formData`, `data` (payload), `httpResponseCode`, `compOper`/`compMode`, `assertRetry*`.
+- **URL suffix / path encoding**: any value interpolated into a URL suffix or path segment must be percent-encoded (URI encoded). Pre-encode dynamic values using `js:{ encodeURIComponent("${MyVar}") }` in a preceding `setVariables` action, then reference the encoded variable in the URL field. Raw values containing spaces, `#`, `&`, `=`, `?`, `+`, `/`, `%`, or non-ASCII characters will produce malformed requests.
 
 ## SQL Actions (JDBC / MSSQL / PostgreSQL)
 

@@ -71,3 +71,4 @@ See [references/connector-action-map.md](./references/connector-action-map.md) f
 - Mixing test logic into a `groupHeader` (those are organizational, not executable).
 - Inventing action fields — always map to `Validator_Schema.json`.
 - Committing cleartext credentials; prefer variable substitution.
+- Using raw (unencoded) URL suffixes in `HTTPConnector` actions — any URL suffix or path segment that contains special characters (spaces, `+`, `#`, `&`, `=`, `%`, non-ASCII, etc.) must be percent-encoded (URI encoded). Use `base64Encode`/JS embedding or pre-encode via `setVariables` before interpolating the value into a URL field.

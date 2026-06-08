@@ -69,6 +69,31 @@ The remaining fields are dictated by the action's `widgets` block in `Validator_
   - JSON parsing: `getJsonValue`
   - XML parsing: `getXPathValue`
 
+## HTTP URL Encoding
+
+Any value interpolated into an `HTTPConnector` URL suffix or path segment must be properly percent-encoded (URI encoded) before use.
+
+- Spaces become `%20` (or `+` only in query strings — prefer `%20` for consistency).
+- Characters with special URL meaning (`#`, `&`, `=`, `?`, `+`, `/`, `%`) must be encoded when they appear as data, not as URL structure.
+- Non-ASCII characters must be UTF-8 percent-encoded.
+
+Encoding strategies:
+- Pre-encode a variable value using a `setVariables` action with `js:{ encodeURIComponent("${MyVar}") }` and use the encoded variable in the URL field.
+- Use the built-in `base64Encode` action for payloads that need base64, but note this is **not** the same as URI encoding — apply `encodeURIComponent` for URL paths/query strings.
+- When the URL suffix is static and known to be safe (alphanumeric + `-` + `_` + `.`), no encoding is needed.
+
+Example — safe encoding via JS:
+```json
+{
+  "actionMethod": "setVariables",
+  "connectorInstanceId": "<generic-guid>",
+  "attributesValues": {
+    "EncodedSuffix": ["js:{ encodeURIComponent(\"${RawSuffix}\") }"]
+  }
+}
+```
+Then reference `${EncodedSuffix}` in the HTTP action's URL field.
+
 ## Assertions
 
 Common comparison fields:
