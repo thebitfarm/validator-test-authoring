@@ -14,6 +14,7 @@ Run through this list before returning a suite to the user.
 - [ ] Every action's `connectorInstanceId` exists in `connectorConfigs`.
 - [ ] Every `actionMethod` exists in `assets/source-files/Validator_Schema.json` under the matching connector class.
 - [ ] All action fields map to widgets defined in the schema (no invented fields).
+- [ ] Every action includes both `enabled` and `exec`, and their boolean values match.
 - [ ] Action descriptions are human-meaningful (they appear in the result log).
 - [ ] Generic utility methods (`runTemplate`, `runCleanup`, `setVariables`, `calculateVariable`, `echo`, etc.) are wired to the `GenericActions` connector `connectorInstanceId`.
 

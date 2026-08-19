@@ -47,6 +47,7 @@
           "connectorInstanceId": "00000000-0000-0000-0000-00000000idv0",
           "actionMethod": "removeObject",
           "enabled": true,
+          "exec": true,
           "description": "Remove test user if it exists",
           "targetFdn": "${Test-User-DN}",
           "ignoreIfMissing": true
@@ -64,6 +65,7 @@
           "connectorInstanceId": "00000000-0000-0000-0000-00000000gen0",
           "actionMethod": "calculateVariable",
           "enabled": true,
+          "exec": true,
           "description": "Increment seq for unique naming",
           "variableExpanded": "${seq}",
           "calcValue": "1",
@@ -74,6 +76,7 @@
           "connectorInstanceId": "00000000-0000-0000-0000-00000000gen0",
           "actionMethod": "runTemplate",
           "enabled": true,
+          "exec": true,
           "description": "Pre-clean any prior test user",
           "testId": "00000000-0000-0000-0000-0000tmpcleanup"
         },
@@ -82,6 +85,7 @@
           "connectorInstanceId": "00000000-0000-0000-0000-00000000gen0",
           "actionMethod": "echo",
           "enabled": true,
+          "exec": true,
           "description": "Log the test user DN",
           "message": "Running create/verify for ${Test-User-DN}"
         },
@@ -90,6 +94,7 @@
           "connectorInstanceId": "00000000-0000-0000-0000-00000000gen0",
           "actionMethod": "comment",
           "enabled": true,
+          "exec": true,
           "description": "Document PRETEST intent",
           "comment": "Generic utility actions are wired to the GenericActions connector instance."
         },
@@ -98,6 +103,7 @@
           "connectorInstanceId": "00000000-0000-0000-0000-00000000idv0",
           "actionMethod": "createObject",
           "enabled": true,
+          "exec": true,
           "description": "Create test user in IDV",
           "targetFdn": "${Test-User-DN}",
           "values": ["inetOrgPerson"],
@@ -111,6 +117,7 @@
           "connectorInstanceId": "00000000-0000-0000-0000-00000000idv0",
           "actionMethod": "assertObjectExists",
           "enabled": true,
+          "exec": true,
           "description": "Assert test user exists",
           "assertRetryCount": "10",
           "assertRetryInterval": "2000",
@@ -122,6 +129,7 @@
           "connectorInstanceId": "00000000-0000-0000-0000-00000000gen0",
           "actionMethod": "runTemplate",
           "enabled": true,
+          "exec": true,
           "description": "Teardown test user",
           "testId": "00000000-0000-0000-0000-0000tmpcleanup"
         }

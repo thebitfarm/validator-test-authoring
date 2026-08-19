@@ -53,7 +53,7 @@ Required-ish fields on every action:
 - `category`: `PRETEST` | `TEST` | `POSTTEST`
 - `connectorInstanceId`: must exist in `connectorConfigs`
 - `actionMethod`: must match a key in `Validator_Schema.json` for that connector
-- `enabled`: typically `true`
+- `enabled` and `exec`: both must be present and must mirror each other. Use `true`/`true` when the action should run in Validator test execution, and `false`/`false` when the action should be skipped. Do not generate mixed states such as `"enabled": true` with `"exec": false`.
 - `description`: short human label
 
 The remaining fields are dictated by the action's `widgets` block in `Validator_Schema.json`. Do not invent fields.
